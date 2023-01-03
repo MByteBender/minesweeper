@@ -281,7 +281,6 @@ public class App extends Application {
 
         primaryStage.show();
     }
-    //HAllO
     public static void main(String[] args) {
         launch(args);
     }
