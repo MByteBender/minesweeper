@@ -1,15 +1,19 @@
 package com.example.minesweeper;
 
+
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.ColorPicker;
+import javafx.scene.media.MediaPlayer;
 import javafx.scene.text.FontWeight;
 import javafx.stage.Stage;
 import java.io.IOException;
 import javafx.geometry.Insets;
 import javafx.scene.control.Label;
 import javafx.scene.layout.*;
+
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 import javafx.geometry.Pos;
@@ -19,8 +23,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
-
-
+import javafx.scene.media.Media;
 public class App extends Application {
 
     private static final int TILE_SIZE = 40;
@@ -36,6 +39,15 @@ public class App extends Application {
     private Scene scene;
     private Scene startScene;
 
+
+    MediaPlayer mediaPlayer;
+    public void music(){
+        String s = "backgroundmusic.mp3";
+        Media h = new Media (Paths.get(s).toUri().toString()) ;
+        mediaPlayer = new MediaPlayer (h);
+        mediaPlayer.play ();
+
+    }
     private Parent startMenu(){
         Button easyButton = new Button("Easy");
         easyButton.setPrefWidth(80);
@@ -227,6 +239,8 @@ public class App extends Application {
 
     @Override
     public void start(Stage primaryStage) {
+
+        music();
 
         Button easyButton = new Button("Easy");
         easyButton.setPrefWidth(80);
