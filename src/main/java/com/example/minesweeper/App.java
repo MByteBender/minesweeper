@@ -35,19 +35,16 @@ public class App extends Application {
 
     private static int score = 0;
 
+
     private final Tile[][] grid = new Tile[X_TILES][Y_TILES];
     private Scene scene;
     private Scene startScene;
 
 
-    MediaPlayer mediaPlayer;
-    public void music(){
-        String s = "backgroundmusic.mp3";
-        Media h = new Media (Paths.get(s).toUri().toString()) ;
-        mediaPlayer = new MediaPlayer (h);
-        mediaPlayer.play ();
+    MediaPlayer MediaPlayer;
 
-    }
+
+
     private Parent startMenu(){
         Button easyButton = new Button("Easy");
         easyButton.setPrefWidth(80);
@@ -212,7 +209,10 @@ public class App extends Application {
             setTranslateX(x * TILE_SIZE);
             setTranslateY(y * TILE_SIZE);
 
-            setOnMouseClicked(e -> open());
+            setOnMouseClicked(e -> {
+                open();
+                Sound.mouseClickSound();
+            });
         }
 
         public void open() {
@@ -221,6 +221,7 @@ public class App extends Application {
 
             if (hasBomb) {
                 System.out.println("Game Over");
+                Sound.bombSound();
                 scene.setRoot(gameOver());
 //                scene.setRoot(createContent());
                 return;
@@ -234,13 +235,16 @@ public class App extends Application {
             if (text.getText().isEmpty()) {
                 getNeighbors(this).forEach(Tile::open);
             }
+            if (text.getText().isEmpty()) {
+                getNeighbors(this).forEach(Tile::open);
+            }
         }
     }
 
     @Override
     public void start(Stage primaryStage) {
 
-        music();
+        Sound.backgroundMusic();
 
         Button easyButton = new Button("Easy");
         easyButton.setPrefWidth(80);
@@ -294,6 +298,10 @@ public class App extends Application {
         primaryStage.setTitle("Minesweeper!");
 
         primaryStage.show();
+
+
+
+
     }
     public static void main(String[] args) {
         launch(args);
