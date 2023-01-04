@@ -30,6 +30,7 @@ public class Sound {
         String s = "bombSound.wav";
         Media h = new Media (Paths.get(s).toUri().toString()) ;
         MediaPlayer = new MediaPlayer(h);
+        MediaPlayer.setVolume(0.25);
         MediaPlayer.play ();
     }
 }

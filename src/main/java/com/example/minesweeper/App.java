@@ -5,6 +5,7 @@ import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.ColorPicker;
+import javafx.scene.control.TextField;
 import javafx.scene.media.MediaPlayer;
 import javafx.scene.text.FontWeight;
 import javafx.stage.Stage;
@@ -40,7 +41,6 @@ public class App extends Application {
     private Scene scene;
     private Scene startScene;
 
-
     MediaPlayer MediaPlayer;
 
 
@@ -55,13 +55,16 @@ public class App extends Application {
         Button hardButton = new Button("Hard");
         hardButton.setPrefWidth(80);
 
+        Button scoreButton = new Button("Highscore");
+        hardButton.setPrefWidth(80);
+
         Label startLabel = new Label("MINESWEEPER");
         startLabel.setTextFill(Color.WHITE);
         startLabel.setFont(Font.font(null, FontWeight.BOLD, 40));
 
-        Label chooseLabel = new Label("Choose Level: ");
+        Label chooseLabel = new Label("Choose Difficulty: ");
         chooseLabel.setFont(Font.font(20));
-        VBox vBox = new VBox(20, startLabel, chooseLabel, easyButton, mediumButton, hardButton);
+        VBox vBox = new VBox(20, startLabel, chooseLabel, easyButton, mediumButton, hardButton, scoreButton);
         vBox.setAlignment(Pos. CENTER);
         vBox.setBackground(new Background(new BackgroundFill(Color.BLACK, CornerRadii.EMPTY, Insets.EMPTY)));
 
@@ -96,11 +99,47 @@ public class App extends Application {
 
         return vBox;
     }
+    private Parent scoreRoom(){
+        Button returnButton = new Button("Back");
+        returnButton.setPrefWidth(80);
+
+        Label name1 = new Label("Username");
+        Label score1 = new Label("Score");
+
+        BorderPane bp = new BorderPane();
+        bp.setPrefSize(600, 400);
+
+        VBox vBox = new VBox(10, returnButton);
+        vBox.setAlignment(Pos. BOTTOM_CENTER);
+
+        HBox hBox = new HBox(100, name1, score1);
+        hBox.setAlignment(Pos. TOP_CENTER);
+
+        name1.setTextFill(Color.WHITE);
+        name1.setFont(Font.font(null, FontWeight.BOLD, 20));
+        score1.setTextFill(Color.WHITE);
+        score1.setFont(Font.font(null, FontWeight.BOLD, 20));
+
+        bp.setBottom(vBox);
+        bp.setTop(hBox);
+        bp.setBackground(new Background(new BackgroundFill(Color.BLACK, CornerRadii.EMPTY, Insets.EMPTY)));
+        bp.setPadding(new Insets(10));
+
+        returnButton.setOnAction(e -> scene.setRoot(startMenu()));
+
+        return bp;
+    }
     private Parent gameOver(){
         VBox vBox = new VBox();
         vBox.setBackground(new Background(new BackgroundFill(Color.BLACK, CornerRadii.EMPTY, Insets.EMPTY)));
         vBox.setAlignment(Pos.CENTER);
 
+        Label name = new Label("Username:");
+        TextField nameField = new TextField ();
+        name.setTextFill(Color.RED);
+        name.setFont(Font.font(null, FontWeight.BOLD, 20));
+        nameField.setFont(Font.font(null, FontWeight.BOLD, 20));
+        nameField.setMaxSize(200,50);
 
         Label highscore = new Label("Score: " + score * 10);
         highscore.setTextFill(Color.RED);
@@ -114,8 +153,9 @@ public class App extends Application {
         Button restart = new Button("Try Again");
         restart.setPrefWidth(150);
 
-        vBox.getChildren().addAll(highscore,l1, restart);
+        vBox.getChildren().addAll(highscore,l1, restart, name, nameField);
         restart.setOnAction(e -> scene.setRoot(startMenu()));
+        nameField.setOnAction(e -> scene.setRoot(startMenu()));
 
         return vBox;
     }
@@ -255,13 +295,16 @@ public class App extends Application {
         Button hardButton = new Button("Hard");
         hardButton.setPrefWidth(80);
 
+        Button scoreButton = new Button("Highscore");
+        scoreButton.setPrefWidth(80);
+
         Label startLabel = new Label("MINESWEEPER");
         startLabel.setTextFill(Color.WHITE);
         startLabel.setFont(Font.font(null, FontWeight.BOLD, 40));
 
         Label chooseLabel = new Label("Choose Level: ");
         chooseLabel.setFont(Font.font(20));
-        VBox vBox = new VBox(20, startLabel, chooseLabel, easyButton, mediumButton, hardButton);
+        VBox vBox = new VBox(20, startLabel, chooseLabel, easyButton, mediumButton, hardButton, scoreButton);
         vBox.setAlignment(Pos. CENTER);
         vBox.setBackground(new Background(new BackgroundFill(Color.BLACK, CornerRadii.EMPTY, Insets.EMPTY)));
 
@@ -294,14 +337,15 @@ public class App extends Application {
             primaryStage.setScene(scene);
         });
 
+        scoreButton.setOnAction(e -> {
+            scene = new Scene(scoreRoom());
+            primaryStage.setScene(scene);
+        });
+
         primaryStage.setScene(startScene);
         primaryStage.setTitle("Minesweeper!");
 
         primaryStage.show();
-
-
-
-
     }
     public static void main(String[] args) {
         launch(args);
