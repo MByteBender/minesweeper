@@ -68,13 +68,13 @@ public class App extends Application {
         vBox.setAlignment(Pos. CENTER);
         vBox.setBackground(new Background(new BackgroundFill(Color.BLACK, CornerRadii.EMPTY, Insets.EMPTY)));
 
+
         easyButton.setOnAction(e -> {
             W = 600;
             H = 400;
             X_TILES = W / TILE_SIZE;
             Y_TILES = H / TILE_SIZE;
             scene = new Scene(createContent());
-
 //            primaryStage.setScene(scene);
         });
 
@@ -309,6 +309,8 @@ public class App extends Application {
         vBox.setBackground(new Background(new BackgroundFill(Color.BLACK, CornerRadii.EMPTY, Insets.EMPTY)));
 
         startScene = new Scene(vBox, 600, 400);
+
+        primaryStage.setResizable(false);
 
         easyButton.setOnAction(e -> {
             W = 600;
