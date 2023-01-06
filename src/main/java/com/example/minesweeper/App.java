@@ -1,16 +1,12 @@
 package com.example.minesweeper;
 import javafx.application.Application;
-import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
-import javafx.scene.control.ColorPicker;
 import javafx.scene.media.MediaPlayer;
 import javafx.scene.text.FontWeight;
 import javafx.stage.Stage;
-import java.io.IOException;
 import javafx.geometry.Insets;
 import javafx.scene.control.Label;
 import javafx.scene.layout.*;
-import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 import javafx.geometry.Pos;
@@ -78,7 +74,6 @@ public class App extends Application {
             scene = new Scene(createContent());
             primaryStage.setScene(scene);
 
-//            primaryStage.setScene(scene);
         });
 
         mediumButton.setOnAction(e -> {
@@ -87,7 +82,7 @@ public class App extends Application {
             X_TILES = W / TILE_SIZE;
             Y_TILES = H / TILE_SIZE;
             scene = new Scene(createContent());
-//            primaryStage.setScene(scene);
+            primaryStage.setScene(scene);
         });
 //
         hardButton.setOnAction(e -> {
@@ -96,7 +91,7 @@ public class App extends Application {
             X_TILES = W / TILE_SIZE;
             Y_TILES = H / TILE_SIZE;
             scene = new Scene(createContent());
-//            primaryStage.setScene(scene);
+            primaryStage.setScene(scene);
         });
 //        startScene = new Scene(vBox, 600, 400);
 
@@ -276,7 +271,7 @@ public class App extends Application {
     @Override
     public void start(Stage primaryStage) {
 
-       // Sound.backgroundMusic();
+        Sound.backgroundMusic();
 
         Button easyButton = new Button("Easy");
         easyButton.setPrefWidth(80);
