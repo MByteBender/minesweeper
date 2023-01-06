@@ -1,6 +1,4 @@
 package com.example.minesweeper;
-
-
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -12,7 +10,6 @@ import java.io.IOException;
 import javafx.geometry.Insets;
 import javafx.scene.control.Label;
 import javafx.scene.layout.*;
-
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
@@ -40,12 +37,19 @@ public class App extends Application {
     private Scene scene;
     private Scene startScene;
 
+    private Stage primaryStage;
+
 
     MediaPlayer MediaPlayer;
+
+    private int bombCounter;
+
+    private String mode; //1 - e, 2-d, 3-m
 
 
 
     private Parent startMenu(){
+
         Button easyButton = new Button("Easy");
         easyButton.setPrefWidth(80);
 
@@ -66,11 +70,13 @@ public class App extends Application {
         vBox.setBackground(new Background(new BackgroundFill(Color.BLACK, CornerRadii.EMPTY, Insets.EMPTY)));
 
         easyButton.setOnAction(e -> {
+            System.out.println(scene);
             W = 600;
             H = 400;
             X_TILES = W / TILE_SIZE;
             Y_TILES = H / TILE_SIZE;
             scene = new Scene(createContent());
+            primaryStage.setScene(scene);
 
 //            primaryStage.setScene(scene);
         });
@@ -103,6 +109,11 @@ public class App extends Application {
 
 
         Label highscore = new Label("Score: " + score * 10);
+
+        //TODO: open highscore.xt, check highscore, highscore < score -> save data with new highscore
+
+        score = 0;
+        bombCounter = 0;
         highscore.setTextFill(Color.RED);
         highscore.setFont(Font.font(null, FontWeight.BOLD, 20));
 
@@ -127,12 +138,16 @@ public class App extends Application {
 
         for (int y = 0; y < Y_TILES; y++) {
             for (int x = 0; x < X_TILES; x++) {
-                Tile tile = new Tile(x, y, Math.random() < 0.15);
-
+                Tile tile = new Tile(x, y, Math.random() < 0.05);
+                if (tile.hasBomb) {
+                    System.out.println(x+"/"+y);
+                    bombCounter++;
+                }
                 grid[x][y] = tile;
                 root.getChildren().add(tile);
             }
         }
+
 
         for (int y = 0; y < Y_TILES; y++) {
             for (int x = 0; x < X_TILES; x++) {
@@ -229,14 +244,31 @@ public class App extends Application {
 
             isOpen = true;
             text.setVisible(true);
-            score ++;
+            score++;
             border.setFill(null);
 
             if (text.getText().isEmpty()) {
                 getNeighbors(this).forEach(Tile::open);
+               /* for (int i = 0; i < getNeighbors(this).size(); i++) {
+                    getNeighbors(this).get(i).open();
+                }*/
             }
             if (text.getText().isEmpty()) {
                 getNeighbors(this).forEach(Tile::open);
+            }
+            // check if win
+            int openTiles = 0;
+            for (int y = 0; y < Y_TILES; y++) {
+                for (int x = 0; x < X_TILES; x++) {
+                    Tile tile = grid[x][y];
+
+                    if (tile.isOpen) {
+                        openTiles++;
+                    }
+                 }
+            }
+            if ((openTiles + bombCounter) == (Y_TILES*X_TILES)) {
+                System.out.println("WIN");
             }
         }
     }
@@ -244,7 +276,7 @@ public class App extends Application {
     @Override
     public void start(Stage primaryStage) {
 
-        Sound.backgroundMusic();
+       // Sound.backgroundMusic();
 
         Button easyButton = new Button("Easy");
         easyButton.setPrefWidth(80);
@@ -266,8 +298,10 @@ public class App extends Application {
         vBox.setBackground(new Background(new BackgroundFill(Color.BLACK, CornerRadii.EMPTY, Insets.EMPTY)));
 
         startScene = new Scene(vBox, 600, 400);
+        this.primaryStage = primaryStage;
 
         easyButton.setOnAction(e -> {
+            mode = "easy";
             W = 600;
             H = 400;
             X_TILES = W / TILE_SIZE;
@@ -277,6 +311,7 @@ public class App extends Application {
         });
 
         mediumButton.setOnAction(e -> {
+            mode = "medium";
             W = 800;
             H = 600;
             X_TILES = W / TILE_SIZE;
@@ -286,6 +321,7 @@ public class App extends Application {
         });
 //
         hardButton.setOnAction(e -> {
+            mode = "hard";
             W = 1000;
             H = 800;
             X_TILES = W / TILE_SIZE;
@@ -296,9 +332,7 @@ public class App extends Application {
 
         primaryStage.setScene(startScene);
         primaryStage.setTitle("Minesweeper!");
-
         primaryStage.show();
-
 
 
 
