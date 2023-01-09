@@ -287,9 +287,9 @@ public class App extends Application {
 
             if (text.getText().isEmpty()) {
                 getNeighbors(this).forEach(Tile::open);
-               /* for (int i = 0; i < getNeighbors(this).size(); i++) {
-                    getNeighbors(this).get(i).open();
-                }*/
+//               for (int i = 0; i < getNeighbors(this).size(); i++) {
+//                    getNeighbors(this).get(i).open();
+//                }
             }
             if (text.getText().isEmpty()) {
                 getNeighbors(this).forEach(Tile::open);
