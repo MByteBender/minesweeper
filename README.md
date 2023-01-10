@@ -1,4 +1,4 @@
-# Minesweeper
+# Minesweeper Alpha Version
 
 
 This Game is inspired by the original Windows Version.
@@ -16,12 +16,10 @@ There are two ways to run the Application: From IDE (e.g. IntelliJ) or to instal
 6. Run App.java to test the Application
 
 #### Prerequisites for installing the release:
-
 - Java Runtime Environment
 
 
 ### Das Spielfeld:
-
 Sie können bei Minesweeper unter drei Standardspielfeldern mit unterschiedlicher Schwierigkeitsstufe wählen.
 
 Easy - 15 x 10 Raster
@@ -30,12 +28,11 @@ Hard - 25 x 20 Raster
 
 
 ### Bombenanzahl:
-
 jedes Kästchen ist mit 15%iger Wahrscheinlichkeit eine Bombe.
 
 
-### Spielweise:
 
+### Spielweise:
 Die Minesweeper-Regeln sind einfach:
 
 Das Spiel ist normalerweise beendet, wenn eine Mine aufgedeckt wird. 
@@ -49,8 +46,14 @@ Wird beim Aufdecken eines Feldes eine Zahl angezeigt, steht diese für die Anzah
 #### Highscore Room funktioniert noch nicht muss noch fertig implementiert werden!!
 
 
-### Authors
+### Features that come in the next releases
+- working Highscoreroom best highscores are saved there
+- algorithm that checks if you have won
+- winning screen
+- code will be split up
+- feature to mark a field
 
+### Authors
 - Tristan Westreicher Team-Lead
 - Aaron-Kevin Santos
 - Mihailo Vucinic
