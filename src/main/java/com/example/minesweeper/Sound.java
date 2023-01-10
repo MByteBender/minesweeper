@@ -10,7 +10,7 @@ public class Sound {
     private static MediaPlayer MediaPlayer;
 
     public static void backgroundMusic(){
-        String s = "backgroundMusic.mp3";
+        String s = "background.mp3";
         Media h = new Media (Paths.get(s).toUri().toString()) ;
         MediaPlayer = new MediaPlayer (h);
         MediaPlayer.setVolume(0.05);
