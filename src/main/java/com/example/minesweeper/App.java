@@ -264,7 +264,6 @@ public class App extends Application {
             }
         }
 
-
         for (int y = 0; y < Y_TILES; y++) {
             for (int x = 0; x < X_TILES; x++) {
                 Tile tile = grid[x][y];
