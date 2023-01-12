@@ -19,6 +19,8 @@ import javafx.scene.text.Text;
 import javafx.scene.media.Media;
 public class App extends Application {
 
+
+
     private static final int TILE_SIZE = 40;
     private static  int W = 1000;
     private static  int H = 800;
@@ -26,7 +28,8 @@ public class App extends Application {
     private static  int X_TILES = W / TILE_SIZE;
     private static  int Y_TILES = H / TILE_SIZE;
 
-    private static int score = 0;
+    private int highscore = 0;
+    private  int score = 0;
 
 
     private final Tile[][] grid = new Tile[X_TILES][Y_TILES];
@@ -35,8 +38,6 @@ public class App extends Application {
 
     private Stage primaryStage;
 
-
-    MediaPlayer MediaPlayer;
 
     private int bombCounter;
 
@@ -116,15 +117,22 @@ public class App extends Application {
         Label name1 = new Label("Username");
         Label score1 = new Label("Score");
 
+        Label highScore = new Label(FileHandler.ReadFile());
+
         BorderPane bp = new BorderPane();
         bp.setPrefSize(600, 400);
 
         VBox vBox = new VBox(10, returnButton);
         vBox.setAlignment(Pos. BOTTOM_CENTER);
 
+        HBox center = new HBox(100, highScore);
+        center.setAlignment(Pos. CENTER);
+
         HBox hBox = new HBox(100, name1, score1);
         hBox.setAlignment(Pos. TOP_CENTER);
 
+        highScore.setTextFill(Color.WHITE);
+        highScore.setFont(Font.font(null, FontWeight.BOLD, 20));
         name1.setTextFill(Color.WHITE);
         name1.setFont(Font.font(null, FontWeight.BOLD, 20));
         score1.setTextFill(Color.WHITE);
@@ -132,6 +140,7 @@ public class App extends Application {
 
         bp.setBottom(vBox);
         bp.setTop(hBox);
+        bp.setCenter(center);
         bp.setBackground(new Background(new BackgroundFill(Color.BLACK, CornerRadii.EMPTY, Insets.EMPTY)));
         bp.setPadding(new Insets(10));
 
@@ -140,19 +149,29 @@ public class App extends Application {
         return bp;
     }
     private Parent gameOver(){
+
         VBox vBox = new VBox();
         vBox.setBackground(new Background(new BackgroundFill(Color.BLACK, CornerRadii.EMPTY, Insets.EMPTY)));
         vBox.setAlignment(Pos.CENTER);
 
 
-        Label highscore = new Label("Score: " + score * 10);
+        Label highScoreLabel = new Label("Score: " + score * 10);
 
         //TODO: open highscore.xt, check highscore, highscore < score -> save data with new highscore
 
+
+        score = score * 10;
+        if (score > highscore){
+            highscore = score * 10;
+            highscore /= 10;
+        }
+        FileHandler.WriteToFile(highscore);
+
+
         score = 0;
         bombCounter = 0;
-        highscore.setTextFill(Color.RED);
-        highscore.setFont(Font.font(null, FontWeight.BOLD, 20));
+        highScoreLabel.setTextFill(Color.RED);
+        highScoreLabel.setFont(Font.font(null, FontWeight.BOLD, 20));
 
         Label l1 = new Label("Game Over!!!");
         l1.setTextFill(Color.RED);
@@ -163,8 +182,54 @@ public class App extends Application {
         Button restart = new Button("Try Again");
         restart.setPrefWidth(150);
 
-        vBox.getChildren().addAll(highscore,l1, restart);
+        vBox.getChildren().addAll(highScoreLabel,l1, restart);
         restart.setOnAction(e -> scene.setRoot(startMenu()));
+
+        FileHandler.CreateFile();
+
+
+        return vBox;
+    }
+
+    private Parent gameWon(){
+
+        VBox vBox = new VBox();
+        vBox.setBackground(new Background(new BackgroundFill(Color.BLACK, CornerRadii.EMPTY, Insets.EMPTY)));
+        vBox.setAlignment(Pos.CENTER);
+
+
+        Label highScoreLabel = new Label("Score: " + score * 10);
+
+        //TODO: open highscore.xt, check highscore, highscore < score -> save data with new highscore
+
+
+        score = score * 10;
+        if (score > highscore){
+            highscore = score * 10;
+            highscore /= 10;
+        }
+        FileHandler.WriteToFile(highscore);
+
+
+        score = 0;
+        bombCounter = 0;
+        highScoreLabel.setTextFill(Color.RED);
+        highScoreLabel.setFont(Font.font(null, FontWeight.BOLD, 20));
+
+        Label l1 = new Label("Game WON!!!");
+        l1.setTextFill(Color.RED);
+        l1.setFont(Font.font(null, FontWeight.BOLD, 50));
+
+
+
+        Button restart = new Button("Try Again");
+        restart.setPrefWidth(150);
+
+        vBox.getChildren().addAll(highScoreLabel,l1, restart);
+        restart.setOnAction(e -> scene.setRoot(startMenu()));
+
+        FileHandler.CreateFile();
+
 
         return vBox;
     }
@@ -178,7 +243,6 @@ public class App extends Application {
             for (int x = 0; x < X_TILES; x++) {
                 Tile tile = new Tile(x, y, Math.random() < 0.15);
                 if (tile.hasBomb) {
-                    System.out.println(x+"/"+y);
                     bombCounter++;
                 }
                 grid[x][y] = tile;
@@ -303,10 +367,10 @@ public class App extends Application {
                     if (tile.isOpen) {
                         openTiles++;
                     }
-                 }
+                }
             }
             if ((openTiles + bombCounter) == (Y_TILES*X_TILES)) {
-                System.out.println("WIN");
+                scene.setRoot(gameWon());
             }
         }
     }
@@ -314,7 +378,10 @@ public class App extends Application {
     @Override
     public void start(Stage primaryStage) {
 
+
+        FileHandler.CreateFile();
         Sound.backgroundMusic();
+
         primaryStage.setResizable(false);
 
         Button scoreButton = new Button("Highscore");
@@ -381,6 +448,7 @@ public class App extends Application {
         primaryStage.setScene(startScene);
         primaryStage.setTitle("Minesweeper!");
         primaryStage.show();
+
 
 
 
