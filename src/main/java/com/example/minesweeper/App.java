@@ -1,12 +1,16 @@
 package com.example.minesweeper;
 import javafx.application.Application;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.media.MediaPlayer;
 import javafx.scene.text.FontWeight;
 import javafx.stage.Stage;
 import javafx.geometry.Insets;
 import javafx.scene.control.Label;
 import javafx.scene.layout.*;
+
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 import javafx.geometry.Pos;
@@ -155,6 +159,10 @@ public class App extends Application {
         vBox.setAlignment(Pos.CENTER);
 
 
+        String s = "gameOver.gif";
+        Image gameOverGif = new Image(Paths.get(s).toUri().toString());
+        ImageView img2 = new ImageView(gameOverGif);
+
         Label highScoreLabel = new Label("Score: " + score * 10);
 
         //TODO: open highscore.xt, check highscore, highscore < score -> save data with new highscore
@@ -179,10 +187,11 @@ public class App extends Application {
 
 
 
+
         Button restart = new Button("Try Again");
         restart.setPrefWidth(150);
 
-        vBox.getChildren().addAll(highScoreLabel,l1, restart);
+        vBox.getChildren().addAll(highScoreLabel,l1, restart, img2);
         restart.setOnAction(e -> scene.setRoot(startMenu()));
 
         FileHandler.CreateFile();
@@ -196,6 +205,10 @@ public class App extends Application {
         VBox vBox = new VBox();
         vBox.setBackground(new Background(new BackgroundFill(Color.BLACK, CornerRadii.EMPTY, Insets.EMPTY)));
         vBox.setAlignment(Pos.CENTER);
+
+        String s = "gameWon.gif";
+        Image gameWonGif = new Image(Paths.get(s).toUri().toString());
+        ImageView img3 = new ImageView(gameWonGif);
 
 
         Label highScoreLabel = new Label("Score: " + score * 10);
@@ -225,7 +238,7 @@ public class App extends Application {
         Button restart = new Button("Try Again");
         restart.setPrefWidth(150);
 
-        vBox.getChildren().addAll(highScoreLabel,l1, restart);
+        vBox.getChildren().addAll(highScoreLabel,l1, restart, img3);
         restart.setOnAction(e -> scene.setRoot(startMenu()));
 
         FileHandler.CreateFile();
@@ -244,6 +257,7 @@ public class App extends Application {
                 Tile tile = new Tile(x, y, Math.random() < 0.15);
                 if (tile.hasBomb) {
                     bombCounter++;
+//                    System.out.println(x+"/"+y);
                 }
                 grid[x][y] = tile;
                 root.getChildren().add(tile);
