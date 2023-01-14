@@ -160,8 +160,8 @@ public class App extends Application {
         vBox.setBackground(new Background(new BackgroundFill(Color.BLACK, CornerRadii.EMPTY, Insets.EMPTY)));
         vBox.setAlignment(Pos.CENTER);
 
-        String s = "gameOver.gif";
-        Image gameOverGif = new Image(Paths.get(s).toUri().toString());
+        String path = "src/main/resources/gameOver.gif";
+        Image gameOverGif = new Image(Paths.get(path).toUri().toString());
         ImageView img2 = new ImageView(gameOverGif);
 
         Label highScoreLabel = new Label("Score: " + score * 10);
@@ -169,9 +169,17 @@ public class App extends Application {
         score = score * 10;
         if (score > highscore){
             highscore = score * 10;
-            highscore /= 10;}
+            highscore /= 10;
+        }
 
-        FileHandler.WriteToFile(highscore);
+        try{
+            int scoreOutFile = Integer.parseInt(FileHandler.ReadFile());
+            if (highscore > scoreOutFile){
+                FileHandler.WriteToFile(highscore);
+            }
+        } catch (NumberFormatException ex){
+            ex.printStackTrace();
+        }
 
         score = 0;
         bombCounter = 0;
@@ -200,8 +208,8 @@ public class App extends Application {
         vBox.setBackground(new Background(new BackgroundFill(Color.BLACK, CornerRadii.EMPTY, Insets.EMPTY)));
         vBox.setAlignment(Pos.CENTER);
 
-        String s = "gameWon.gif";
-        Image gameWonGif = new Image(Paths.get(s).toUri().toString());
+        String path = "src/main/resources/gameWon.gif";
+        Image gameWonGif = new Image(Paths.get(path).toUri().toString());
         ImageView img3 = new ImageView(gameWonGif);
 
         Label highScoreLabel = new Label("Score: " + score * 10);
@@ -209,9 +217,17 @@ public class App extends Application {
         score = score * 10;
         if (score > highscore){
             highscore = score * 10;
-            highscore /= 10;}
+            highscore /= 10;
+        }
 
-        FileHandler.WriteToFile(highscore);
+        try{
+            int scoreOutFile = Integer.parseInt(FileHandler.ReadFile());
+            if (highscore > scoreOutFile){
+                FileHandler.WriteToFile(highscore);
+            }
+        } catch (NumberFormatException ex){
+            ex.printStackTrace();
+        }
 
         score = 0;
         bombCounter = 0;
