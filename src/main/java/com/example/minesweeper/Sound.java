@@ -5,6 +5,7 @@ import javafx.scene.media.MediaPlayer;
 
 import java.nio.file.Paths;
 
+
 public class Sound {
 
     private static MediaPlayer MediaPlayer;
@@ -16,8 +17,8 @@ public class Sound {
         MediaPlayer.setVolume(0.05);
         MediaPlayer.setCycleCount(((int) Double.POSITIVE_INFINITY)); //infinite Background music loop
         MediaPlayer.play ();
-
     }
+
 
     public static void mouseClickSound(){
         String s = "mouseClick.wav";
@@ -25,6 +26,7 @@ public class Sound {
         MediaPlayer = new MediaPlayer (h);
         MediaPlayer.play ();
     }
+
 
     public static void bombSound(){
         String s = "bombSound.wav";
