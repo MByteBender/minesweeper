@@ -1,8 +1,11 @@
 package com.example.minesweeper;
 import javafx.application.Application;
+import javafx.event.EventHandler;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseButton;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.text.FontWeight;
 import javafx.stage.Stage;
 import javafx.geometry.Insets;
@@ -19,6 +22,7 @@ import javafx.scene.text.Text;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class App extends Application {
 
@@ -235,15 +239,46 @@ public class App extends Application {
         Pane root = new Pane();
 
         root.setPrefSize(W, H);
+        if (Objects.equals(mode, "easy")) {
+            for (int y = 0; y < Y_TILES; y++) {
+                for (int x = 0; x < X_TILES; x++) {
+                    Tile tile = new Tile(x, y, Math.random() < 0.15);
+                    if (tile.hasBomb) {
+                        bombCounter++;
+                        System.out.println(x+"/"+y);
+                    }
 
-        for (int y = 0; y < Y_TILES; y++) {
-            for (int x = 0; x < X_TILES; x++) {
-                Tile tile = new Tile(x, y, Math.random() < 0.15);
-                if (tile.hasBomb) {
-                    bombCounter++;}
+                    grid[x][y] = tile;
+                    root.getChildren().add(tile);
+                }
+            }
 
-                grid[x][y] = tile;
-                root.getChildren().add(tile);
+        } else if (Objects.equals(mode, "medium")) {
+            for (int y = 0; y < Y_TILES; y++) {
+                for (int x = 0; x < X_TILES; x++) {
+                    Tile tile = new Tile(x, y, Math.random() < 0.18);
+                    if (tile.hasBomb) {
+                        bombCounter++;
+                        System.out.println(x+"/"+y);
+                    }
+
+                    grid[x][y] = tile;
+                    root.getChildren().add(tile);
+                }
+            }
+
+        } else if (Objects.equals(mode, "hard")) {
+            for (int y = 0; y < Y_TILES; y++) {
+                for (int x = 0; x < X_TILES; x++) {
+                    Tile tile = new Tile(x, y, Math.random() < 0.20);
+                    if (tile.hasBomb) {
+                        bombCounter++;
+                        System.out.println(x+"/"+y);
+                    }
+
+                    grid[x][y] = tile;
+                    root.getChildren().add(tile);
+                }
             }
         }
 
@@ -327,8 +362,20 @@ public class App extends Application {
             setTranslateX(x * TILE_SIZE);
             setTranslateY(y * TILE_SIZE);
 
+            border.addEventFilter(MouseEvent.MOUSE_CLICKED, event -> {
+                if (event.getButton() == MouseButton.PRIMARY) {
+                    open();
+                }
+                if (event.getButton() == MouseButton.SECONDARY) {
+                    border.setFill(Color.RED);
+                }
+                if (event.getButton() == MouseButton.SECONDARY) {
+                    if (event.getClickCount() == 2) {
+                        border.setFill(Color.BLACK);
+                    }
+                }
+            });
             setOnMouseClicked(e -> {
-                open();
                 Sound.mouseClickSound();
             });
         }
