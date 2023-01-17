@@ -48,6 +48,7 @@ public class App extends Application {
 
 
 
+    // creates the start Menu with an easy medium hard mode and highscore room selection
     private Parent startMenu(){
 
         Button easyButton = new Button("Easy");
@@ -73,6 +74,7 @@ public class App extends Application {
         vBox.setBackground(new Background(new BackgroundFill(Color.BLACK, CornerRadii.EMPTY, Insets.EMPTY)));
 
 
+        // sets the grid to 15 x 10 tiles when clicking on the easy-button
         easyButton.setOnAction(e -> {
             System.out.println(scene);
             W = 600;
@@ -84,6 +86,7 @@ public class App extends Application {
         });
 
 
+        // sets the grid to 20 x 15 tiles when clicking on the medium-button
         mediumButton.setOnAction(e -> {
             W = 800;
             H = 600;
@@ -94,6 +97,7 @@ public class App extends Application {
         });
 
 
+        // sets the grid to 25 x 20 tiles when clicking on the hard-button
         hardButton.setOnAction(e -> {
             W = 1000;
             H = 800;
@@ -104,6 +108,7 @@ public class App extends Application {
         });
 
 
+        // changes scene to the highscore room
         scoreButton.setOnAction(e -> {
             scene = new Scene(scoreRoom());
             primaryStage.setScene(scene);
@@ -112,7 +117,7 @@ public class App extends Application {
     }
 
 
-    // creates the scoreroom
+    // creates the scoreroom where the highscore is shown
     private Parent scoreRoom(){
 
 
@@ -277,9 +282,7 @@ public class App extends Application {
                     if (tile.hasBomb) {
                         bombCounter++;
                     }
-
-                    // places a tile at the current x/y position
-                    grid[x][y] = tile;
+                    grid[x][y] = tile; // places a tile at the current x/y position
                     root.getChildren().add(tile);
                 }
             }
@@ -292,8 +295,7 @@ public class App extends Application {
                     if (tile.hasBomb) {
                         bombCounter++;
                     }
-                    // places a tile at the current x/y position
-                    grid[x][y] = tile;
+                    grid[x][y] = tile; // places a tile at the current x/y position
                     root.getChildren().add(tile);
                 }
             }
@@ -306,8 +308,7 @@ public class App extends Application {
                     if (tile.hasBomb) {
                         bombCounter++;
                     }
-                    // places a tile at the current x/y position
-                    grid[x][y] = tile;
+                    grid[x][y] = tile; // places a tile at the current x/y position
                     root.getChildren().add(tile);
                 }
             }
