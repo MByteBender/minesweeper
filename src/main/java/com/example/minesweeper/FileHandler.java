@@ -3,8 +3,17 @@ package com.example.minesweeper;
 import java.io.*;
 import java.util.Scanner;
 
+/**
+ * handles the highscore writting/ reading/ creating
+ */
+
 public class FileHandler {
 
+
+
+    /** creates a highscore-file in the resources directory and handels errors
+     * checks also if file already exists
+     * */
     public static void CreateFile(){
         try {
             File myObj = new File("src/main/resources/highscore.dat");
@@ -20,11 +29,12 @@ public class FileHandler {
         }
     }
 
+    /** writes the highscore in the file and converts the score to a String to write it correctly to the file */
     public static void WriteToFile(int score){
-        Integer i = score;
+        Integer scoreWrapped = score;
         try {
             FileWriter myWriter = new FileWriter("src/main/resources/highscore.dat");
-            myWriter.write(i.toString());
+            myWriter.write(scoreWrapped.toString());
             myWriter.close();
         } catch (IOException e) {
             System.out.println("An error occurred.");
@@ -32,6 +42,7 @@ public class FileHandler {
         }
     }
 
+    /** reads the score out of the highscore.dat file and handels an exception when the file is not existend */
     public static String ReadFile(){
         String data ="";
         try {

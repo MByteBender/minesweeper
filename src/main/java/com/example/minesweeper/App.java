@@ -112,7 +112,9 @@ public class App extends Application {
     }
 
 
+    // creates the scoreroom
     private Parent scoreRoom(){
+
 
         Button returnButton = new Button("Back");
         returnButton.setPrefWidth(80);
@@ -154,26 +156,31 @@ public class App extends Application {
     }
 
 
+    /** creates the game over screen*/
     private Parent gameOver(){
 
         VBox vBox = new VBox();
         vBox.setBackground(new Background(new BackgroundFill(Color.BLACK, CornerRadii.EMPTY, Insets.EMPTY)));
         vBox.setAlignment(Pos.CENTER);
 
+        // places a game over gif
         String path = "src/main/resources/gameOver.gif";
         Image gameOverGif = new Image(Paths.get(path).toUri().toString());
         ImageView img2 = new ImageView(gameOverGif);
 
         Label highScoreLabel = new Label("Score: " + score * 10);
 
+        // checks if the actual score is higher than the highscore if yes it saves the score as the highscore
         score = score * 10;
         if (score > highscore){
             highscore = score * 10;
             highscore /= 10;
         }
 
+        /* checks if the actual highscore is bigger than the highscore
+        written in the highscore file if yes it writes it into the highscore file */
         try{
-            int scoreOutFile = Integer.parseInt(FileHandler.ReadFile());
+            int scoreOutFile = Integer.parseInt(FileHandler.ReadFile()); //converts the highscore String to a int
             if (highscore > scoreOutFile){
                 FileHandler.WriteToFile(highscore);
             }
@@ -196,30 +203,34 @@ public class App extends Application {
         vBox.getChildren().addAll(highScoreLabel,l1, restart, img2);
         restart.setOnAction(e -> scene.setRoot(startMenu()));
 
-        FileHandler.CreateFile();
 
         return vBox;
     }
 
 
+    /** creates the game won screen*/
     private Parent gameWon(){
 
         VBox vBox = new VBox();
         vBox.setBackground(new Background(new BackgroundFill(Color.BLACK, CornerRadii.EMPTY, Insets.EMPTY)));
         vBox.setAlignment(Pos.CENTER);
 
+        // places a winning gif
         String path = "src/main/resources/gameWon.gif";
         Image gameWonGif = new Image(Paths.get(path).toUri().toString());
         ImageView img3 = new ImageView(gameWonGif);
 
         Label highScoreLabel = new Label("Score: " + score * 10);
 
+        // checks if the actual score is higher than the highscore if yes it saves the score as the highscore
         score = score * 10;
         if (score > highscore){
             highscore = score * 10;
             highscore /= 10;
         }
 
+        /* checks if the actual highscore is bigger than the highscore
+        written in the highscore file if yes it writes it into the highscore file */
         try{
             int scoreOutFile = Integer.parseInt(FileHandler.ReadFile());
             if (highscore > scoreOutFile){
@@ -242,7 +253,7 @@ public class App extends Application {
         restart.setPrefWidth(150);
 
         vBox.getChildren().addAll(highScoreLabel,l1, restart, img3);
-        restart.setOnAction(e -> scene.setRoot(startMenu()));
+        restart.setOnAction(e -> scene.setRoot(startMenu())); //sets the scene to the start Menu
 
         FileHandler.CreateFile();
 
@@ -250,48 +261,52 @@ public class App extends Application {
     }
 
 
+    /** creates the game itself*/
     private Parent createContent() {
 
         Pane root = new Pane();
 
+
         root.setPrefSize(W, H);
+
+        // creates the tiles and checks if easy mode is chosen
         if (Objects.equals(mode, "easy")) {
             for (int y = 0; y < Y_TILES; y++) {
                 for (int x = 0; x < X_TILES; x++) {
-                    Tile tile = new Tile(x, y, Math.random() < 0.15);
+                    Tile tile = new Tile(x, y, Math.random() < 0.15); //with 15% probability the field is a bomb
                     if (tile.hasBomb) {
                         bombCounter++;
-                        System.out.println(x+"/"+y);
                     }
 
+                    // places a tile at the current x/y position
                     grid[x][y] = tile;
                     root.getChildren().add(tile);
                 }
             }
 
+        // creates the tiles and checks if medium mode is chosen
         } else if (Objects.equals(mode, "medium")) {
             for (int y = 0; y < Y_TILES; y++) {
                 for (int x = 0; x < X_TILES; x++) {
-                    Tile tile = new Tile(x, y, Math.random() < 0.18);
+                    Tile tile = new Tile(x, y, Math.random() < 0.18); //with 18% probability the field is a bomb
                     if (tile.hasBomb) {
                         bombCounter++;
-                        System.out.println(x+"/"+y);
                     }
-
+                    // places a tile at the current x/y position
                     grid[x][y] = tile;
                     root.getChildren().add(tile);
                 }
             }
 
+        // creates the tiles and checks if hard mode is chosen
         } else if (Objects.equals(mode, "hard")) {
             for (int y = 0; y < Y_TILES; y++) {
                 for (int x = 0; x < X_TILES; x++) {
-                    Tile tile = new Tile(x, y, Math.random() < 0.20);
+                    Tile tile = new Tile(x, y, Math.random() < 0.20); //with 20% probability the field is a bomb
                     if (tile.hasBomb) {
                         bombCounter++;
-                        System.out.println(x+"/"+y);
                     }
-
+                    // places a tile at the current x/y position
                     grid[x][y] = tile;
                     root.getChildren().add(tile);
                 }
@@ -316,10 +331,12 @@ public class App extends Application {
     }
 
 
+
     private List<Tile> getNeighbors(Tile tile) {
 
         List<Tile> neighbors = new ArrayList<>();
 
+        // creates an array with the positon of the 8 surounden fields
         int[] points = new int[] {
                 -1, -1,
                 -1, 0,
@@ -330,6 +347,7 @@ public class App extends Application {
                 1, 0,
                 1, 1
         };
+
 
         for (int i = 0; i < points.length; i++) {
             int dx = points[i];
@@ -361,6 +379,7 @@ public class App extends Application {
         private final Text text = new Text();
 
 
+        // constructor of the tile object with x  y postion and a boolean to see if the tile has a bomb
         public Tile(int x, int y, boolean hasBomb) {
 
             this.x = x;
@@ -378,13 +397,17 @@ public class App extends Application {
             setTranslateX(x * TILE_SIZE);
             setTranslateY(y * TILE_SIZE);
 
+
+            // checks if the mouse is right or left clicked
             border.addEventFilter(MouseEvent.MOUSE_CLICKED, event -> {
                 if (event.getButton() == MouseButton.PRIMARY) {
                     open();
                 }
+                // set fill of the tile to red to mark it when mouse is right clicked
                 if (event.getButton() == MouseButton.SECONDARY) {
                     border.setFill(Color.RED);
                 }
+                // if the tile is right clicked again it changes the state back
                 if (event.getButton() == MouseButton.SECONDARY) {
                     if (event.getClickCount() == 2) {
                         border.setFill(Color.BLACK);
@@ -392,16 +415,20 @@ public class App extends Application {
                 }
             });
             setOnMouseClicked(e -> {
+                // plays a click sound when the mouse is clicked
                 Sound.mouseClickSound();
             });
         }
 
 
+        /** reveals a tile*/
         public void open() {
 
+            // if tile is already opened nothing should happen
             if (isOpen)
                 return;
 
+            // if tile has a bomb game is Over and set scene to gameOver
             if (hasBomb) {
                 System.out.println("Game Over");
                 Sound.bombSound();
@@ -409,11 +436,13 @@ public class App extends Application {
                 return;
             }
 
+
             isOpen = true;
             text.setVisible(true);
             score++;
             border.setFill(null);
 
+            // if reveald field is an empty one it opens all surounden empty fields
             if (text.getText().isEmpty()) {
                 getNeighbors(this).forEach(Tile::open);
             }
@@ -432,6 +461,7 @@ public class App extends Application {
                 }
             }
 
+            // if all tiles which are not a bomb are opend set the scene to the game won screen
             if ((openTiles + bombCounter) == (Y_TILES*X_TILES)) {
                 scene.setRoot(gameWon());
             }
@@ -473,6 +503,7 @@ public class App extends Application {
         Scene startScene = new Scene(vBox, 600, 400);
         this.primaryStage = primaryStage;
 
+        // sets the grid to 15 x 10 tiles when clicking on the easy-button
         easyButton.setOnAction(e -> {
             mode = "easy";
             W = 600;
@@ -483,6 +514,7 @@ public class App extends Application {
             primaryStage.setScene(scene);
         });
 
+        // sets the grid to 20 x 15 tiles when clicking on the easy-button
         mediumButton.setOnAction(e -> {
             mode = "medium";
             W = 800;
@@ -493,6 +525,7 @@ public class App extends Application {
             primaryStage.setScene(scene);
         });
 
+        // sets the grid to 25 x 20 tiles when clicking on the easy-button
         hardButton.setOnAction(e -> {
             mode = "hard";
             W = 1000;
@@ -503,6 +536,7 @@ public class App extends Application {
             primaryStage.setScene(scene);
         });
 
+        // changes the scene to the scoreroom to see the highscore
         scoreButton.setOnAction(e -> {
             scene = new Scene(scoreRoom());
             primaryStage.setScene(scene);
