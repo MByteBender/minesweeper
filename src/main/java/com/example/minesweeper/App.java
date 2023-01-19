@@ -164,7 +164,7 @@ public class App extends Application {
     /** creates the game over screen*/
     private Parent gameOver(){
 
-        VBox vBox = new VBox();
+        VBox vBox = new VBox(10);
         vBox.setBackground(new Background(new BackgroundFill(Color.BLACK, CornerRadii.EMPTY, Insets.EMPTY)));
         vBox.setAlignment(Pos.CENTER);
 
