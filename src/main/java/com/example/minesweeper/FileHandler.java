@@ -10,15 +10,14 @@ import java.util.Scanner;
 public class FileHandler {
 
 
-
     /** creates a highscore-file in the resources directory and handels errors
      * checks also if file already exists
-     * */
-    public static void CreateFile(){
+     */
+    public static void createFile(){
         try {
             File myObj = new File("src/main/resources/highscore.dat");
             if (myObj.createNewFile()) {
-                WriteToFile(0);
+                writeToFile(0);
                 System.out.println("File created: " + myObj.getName());
             } else {
                 System.out.println("File already exists.");
@@ -30,7 +29,7 @@ public class FileHandler {
     }
 
     /** writes the highscore in the file and converts the score to a String to write it correctly to the file */
-    public static void WriteToFile(int score){
+    public static void writeToFile(int score){
         Integer scoreWrapped = score;
         try {
             FileWriter myWriter = new FileWriter("src/main/resources/highscore.dat");
@@ -43,7 +42,7 @@ public class FileHandler {
     }
 
     /** reads the score out of the highscore.dat file and handels an exception when the file is not existend */
-    public static String ReadFile(){
+    public static String readFile(){
         String data ="";
         try {
             File myObj = new File("src/main/resources/highscore.dat");
