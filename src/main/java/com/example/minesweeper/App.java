@@ -125,6 +125,7 @@ public class App extends Application {
         vBox.setBackground(new Background(new BackgroundFill(Color.BLACK, CornerRadii.EMPTY, Insets.EMPTY)));
 
 
+
         String path = "src/main/resources/background.png";
         Image backgroundPng = new Image(Paths.get(path).toUri().toString());
         BackgroundImage backgroundImage = new BackgroundImage(backgroundPng,BackgroundRepeat.NO_REPEAT,BackgroundRepeat.NO_REPEAT,BackgroundPosition.CENTER,new BackgroundSize(100,100,true,true,true,true));
