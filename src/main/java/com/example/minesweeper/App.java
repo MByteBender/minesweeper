@@ -345,6 +345,7 @@ public class App extends Application {
                 // calculates the number of bombs form the neighbors, using long, because stream count will return long
                 long bombs = getNeighbors(tile).stream().filter(t -> t.hasBomb).count();
 
+                // sets the number of surrounding bombs into the tile
                 if (bombs > 0)
                     tile.text.setText(String.valueOf(bombs));
             }
@@ -376,9 +377,10 @@ public class App extends Application {
             int dx = points[i];
             int dy = points[++i];
 
-            int newX = tile.x + dx;
-            int newY = tile.y + dy;
+            int newX = tile.x + dx; // neighbors x coordinate
+            int newY = tile.y + dy; // neighbors y coordinate
 
+            // checks if new X & Y confidante is valid in Grid 2d Array
             if (newX >= 0 && newX < X_TILES
                     && newY >= 0 && newY < Y_TILES) {
                 neighbors.add(grid[newX][newY]);
@@ -412,7 +414,7 @@ public class App extends Application {
             border.setStroke(Color.LIGHTGRAY);
 
             text.setFont(Font.font(18));
-            text.setText(hasBomb ? "X" : "");
+            text.setText(hasBomb ? "X" : ""); // if hasBomb is true setText to X if not set empty
             text.setVisible(false);
 
             getChildren().addAll(border, text);
@@ -465,7 +467,7 @@ public class App extends Application {
             score++;
             border.setFill(null);
 
-            // if reveald field is an empty one it opens all surounden empty fields
+            // if revealed field is an empty one it opens all surrounding empty fields
             if (text.getText().isEmpty()) {
                 getNeighbors(this).forEach(Tile::open);
             }
@@ -475,6 +477,7 @@ public class App extends Application {
 //                getNeighbors(this).get(i).open();
 //            }
 
+            // for game won counts open Tiles
             int openTiles = 0;
             for (int y = 0; y < Y_TILES; y++) {
                 for (int x = 0; x < X_TILES; x++) {
@@ -485,7 +488,7 @@ public class App extends Application {
                 }
             }
 
-            // if all tiles which are not a bomb are opend set the scene to the game won screen
+            // if all tiles which are not a bomb are opened set the scene to the game won screen
             if ((openTiles + bombCounter) == (Y_TILES*X_TILES)) {
                 scene.setRoot(gameWon());
             }
