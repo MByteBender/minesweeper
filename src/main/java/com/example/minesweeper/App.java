@@ -229,9 +229,6 @@ public class App extends Application {
 
 
         returnButton.setOnAction(e -> scene.setRoot(startMenu()));
-//
-//        sceneRules = new Scene(rB);
-//        primaryStage.setScene(sceneRules);
 
 
         String pathBackground = "src/main/resources/background.png";
@@ -369,39 +366,6 @@ public class App extends Application {
 
     /** creates the game itself*/
     private Parent createContent() {
-
-//        Pane root = new Pane();
-//
-//        root.setPrefSize(W, H);
-//
-//        for (int y = 0; y < Y_TILES; y++) {
-//            for (int x = 0; x < X_TILES; x++) {
-//                Tile tile = new Tile(x, y, Math.random() < 0.15);
-//                if (tile.hasBomb) {
-//                    bombCounter++;
-////                    System.out.println(x+"/"+y);
-//                }
-//                grid[x][y] = tile;
-//                root.getChildren().add(tile);
-//            }
-//        }
-//
-//
-//        for (int y = 0; y < Y_TILES; y++) {
-//            for (int x = 0; x < X_TILES; x++) {
-//                Tile tile = grid[x][y];
-//
-//                if (tile.hasBomb)
-//                    continue;
-//
-//                long bombs = getNeighbors(tile).stream().filter(t -> t.hasBomb).count();
-//
-//                if (bombs > 0)
-//                    tile.text.setText(String.valueOf(bombs));
-//            }
-//        }
-//
-//        return root;
 
         Pane root = new Pane();
 
