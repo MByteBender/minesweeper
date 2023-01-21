@@ -85,7 +85,7 @@ public class App extends Application {
 
         // sets the grid to 15 x 10 tiles when clicking on the easy-button
         easyButton.setOnAction(e -> {
-            System.out.println(scene);
+            mode = "easy";
             W = 600;
             H = 400;
             X_TILES = W / TILE_SIZE;
@@ -97,6 +97,7 @@ public class App extends Application {
 
         // sets the grid to 20 x 15 tiles when clicking on the medium-button
         mediumButton.setOnAction(e -> {
+            mode = "medium";
             W = 800;
             H = 600;
             X_TILES = W / TILE_SIZE;
@@ -108,6 +109,7 @@ public class App extends Application {
 
         // sets the grid to 25 x 20 tiles when clicking on the hard-button
         hardButton.setOnAction(e -> {
+            mode = "hard";
             W = 1000;
             H = 800;
             X_TILES = W / TILE_SIZE;
@@ -135,38 +137,6 @@ public class App extends Application {
 
     // creates the scoreroom where the highscore is shown
     private Parent scoreRoom(){
-
-
-
-//
-//        Label score1 = new Label("Score");
-//        Label highScore = new Label(FileHandler.readFile());
-//
-//        BorderPane bp = new BorderPane();
-//        bp.setPrefSize(600, 400);
-//
-//
-//        VBox vBox = new VBox(10, returnButton);
-//        vBox.setAlignment(Pos. BOTTOM_CENTER);
-//
-//        HBox center = new HBox(100, highScore);
-//        center.setAlignment(Pos. CENTER);
-//
-//        HBox hBox = new HBox(100, score1);
-//        hBox.setAlignment(Pos. TOP_CENTER);
-//
-//        highScore.setTextFill(Color.WHITE);
-//        highScore.setFont(Font.font(null, FontWeight.BOLD, 20));
-//
-//
-//        score1.setTextFill(Color.WHITE);
-//        score1.setFont(Font.font(null, FontWeight.BOLD, 20));
-//
-//        bp.setBottom(vBox);
-//        bp.setTop(hBox);
-//        bp.setCenter(center);
-//        bp.setBackground(new Background(new BackgroundFill(Color.BLACK, CornerRadii.EMPTY, Insets.EMPTY)));
-//        bp.setPadding(new Insets(10));
 
         Button backButton = new Button("Back");
         backButton.setAlignment(Pos.BOTTOM_CENTER);
@@ -399,6 +369,39 @@ public class App extends Application {
 
     /** creates the game itself*/
     private Parent createContent() {
+
+//        Pane root = new Pane();
+//
+//        root.setPrefSize(W, H);
+//
+//        for (int y = 0; y < Y_TILES; y++) {
+//            for (int x = 0; x < X_TILES; x++) {
+//                Tile tile = new Tile(x, y, Math.random() < 0.15);
+//                if (tile.hasBomb) {
+//                    bombCounter++;
+////                    System.out.println(x+"/"+y);
+//                }
+//                grid[x][y] = tile;
+//                root.getChildren().add(tile);
+//            }
+//        }
+//
+//
+//        for (int y = 0; y < Y_TILES; y++) {
+//            for (int x = 0; x < X_TILES; x++) {
+//                Tile tile = grid[x][y];
+//
+//                if (tile.hasBomb)
+//                    continue;
+//
+//                long bombs = getNeighbors(tile).stream().filter(t -> t.hasBomb).count();
+//
+//                if (bombs > 0)
+//                    tile.text.setText(String.valueOf(bombs));
+//            }
+//        }
+//
+//        return root;
 
         Pane root = new Pane();
 
