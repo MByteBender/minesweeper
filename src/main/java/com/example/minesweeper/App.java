@@ -19,14 +19,11 @@ import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 
 import java.nio.file.Paths;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
-import java.util.Scanner;
+import java.util.*;
 
 public class App extends Application {
 
-    private Scene sceneRules;
+
     private static final int TILE_SIZE = 40;
     private static  int W = 1000;
     private static  int H = 800;
@@ -74,7 +71,7 @@ public class App extends Application {
         Label chooseLabel = new Label("Choose Level: ");
         chooseLabel.setFont(Font.font(20));
         chooseLabel.setTextFill(Color.WHITE);
-        VBox vBox = new VBox(20, startLabel, chooseLabel, easyButton, mediumButton, hardButton, scoreButton);
+        VBox vBox = new VBox(20, startLabel, chooseLabel, easyButton, mediumButton, hardButton, scoreButton, rulesButton);
         vBox.setAlignment(Pos. CENTER);
         vBox.setBackground(new Background(new BackgroundFill(Color.BLACK, CornerRadii.EMPTY, Insets.EMPTY)));
 
@@ -127,7 +124,8 @@ public class App extends Application {
         });
 
         rulesButton.setOnAction(e -> {
-            primaryStage.setScene(sceneRules);
+            scene = new Scene(rulesRoom());
+            primaryStage.setScene(scene);
         });
 
 
@@ -207,7 +205,7 @@ public class App extends Application {
     }
 
 
-    private void rulesButton() {
+    private Parent rulesRoom() {
 
         Button returnButton = new Button("Back");
         returnButton.setPrefWidth(80);
@@ -217,27 +215,28 @@ public class App extends Application {
 
         Label rules = new Label ("""
                 Choose between three different difficulties:
-                                
+
                 → Easy - 10 x 15 Raster & 15% Bombs
-                                
+
                 → Medium - 15 x 15 Raster & 18% Bombs
-                                
+
                 → Hard - 20 x 25 Raster & 20% Bombs
-                
-                                
+
+
                 Explaination Minesweeper:
-                                
+
                 The game is usually over when a mine is revealed.
-                                
+
                 The game continues when an empty square is revealed.
-                                
+
                 If a number is displayed when a square is uncovered, it represents the number of mines,
                 that are hidden in the adjacent 8 fields.
-                                
+
                 Based on this information, it can be deduced under which of the adjacent fields mines are located
                 and on which fields can be clicked without danger.
                 """);
         rules.setFont(Font.font(null, FontWeight.BOLD, 15));
+        rules.setTextFill(Color.WHITE);
 
         Label rulesHeader = new Label("Rules");
         rulesHeader.setTextFill(Color.BLUEVIOLET);
@@ -249,7 +248,7 @@ public class App extends Application {
         HBox center = new HBox(100, rules);
         center.setAlignment(Pos. CENTER);
 
-        rules.setTextFill(Color.BLUEVIOLET);
+
 
         rB.setBackground(new Background(new BackgroundFill(Color.BLACK, CornerRadii.EMPTY, Insets.EMPTY)));
         rB.setPadding(new Insets(10));
@@ -257,10 +256,26 @@ public class App extends Application {
         rB.setTop(hBox);
         rB.setBottom(returnButton);
         rB.setCenter(rules);
-        returnButton.setOnAction(e -> primaryStage.setScene(scene));
 
-        sceneRules = new Scene(rB);
-        primaryStage.setScene(sceneRules);
+
+        returnButton.setOnAction(e -> scene.setRoot(startMenu()));
+//
+//        sceneRules = new Scene(rB);
+//        primaryStage.setScene(sceneRules);
+
+
+        String pathBackground = "src/main/resources/background.png";
+        Image backgroundPng = new Image(Paths.get(pathBackground).toUri().toString());
+        BackgroundImage backgroundImage = new BackgroundImage(backgroundPng,BackgroundRepeat.NO_REPEAT,BackgroundRepeat.NO_REPEAT,BackgroundPosition.CENTER,new BackgroundSize(100,100,true,true,true,true));
+        Background background = new Background(backgroundImage);
+
+        rB.setBackground(background);
+
+        Label l1 = new Label("Rules");
+        l1.setTextFill(Color.BLUEVIOLET);
+        l1.setFont(Font.font(null, FontWeight.BOLD, 50));
+
+        return rB;
     }
     /** creates the game over screen*/
     private Parent gameOver(){
@@ -550,7 +565,6 @@ public class App extends Application {
 
             // if tile has a bomb game is Over and set scene to gameOver
             if (hasBomb) {
-                System.out.println("Game Over");
                 SoundHandler.bombSound();
                 scene.setRoot(gameOver());
                 return;
@@ -682,8 +696,9 @@ public class App extends Application {
 
         // changes scene to the rulesroom to read the game rules
         rulesButton.setOnAction(e -> {
+            scene = new Scene(rulesRoom());
+            primaryStage.setScene(scene);
 
-            primaryStage.setScene(sceneRules);
         });
 
         primaryStage.setScene(startScene);
