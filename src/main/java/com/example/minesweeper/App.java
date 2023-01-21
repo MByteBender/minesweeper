@@ -127,43 +127,72 @@ public class App extends Application {
     // creates the scoreroom where the highscore is shown
     private Parent scoreRoom(){
 
-        Button returnButton = new Button("Back");
-        returnButton.setPrefWidth(80);
 
-        Label name1 = new Label("Username");
-        Label score1 = new Label("Score");
+
+//
+//        Label score1 = new Label("Score");
+//        Label highScore = new Label(FileHandler.readFile());
+//
+//        BorderPane bp = new BorderPane();
+//        bp.setPrefSize(600, 400);
+//
+//
+//        VBox vBox = new VBox(10, returnButton);
+//        vBox.setAlignment(Pos. BOTTOM_CENTER);
+//
+//        HBox center = new HBox(100, highScore);
+//        center.setAlignment(Pos. CENTER);
+//
+//        HBox hBox = new HBox(100, score1);
+//        hBox.setAlignment(Pos. TOP_CENTER);
+//
+//        highScore.setTextFill(Color.WHITE);
+//        highScore.setFont(Font.font(null, FontWeight.BOLD, 20));
+//
+//
+//        score1.setTextFill(Color.WHITE);
+//        score1.setFont(Font.font(null, FontWeight.BOLD, 20));
+//
+//        bp.setBottom(vBox);
+//        bp.setTop(hBox);
+//        bp.setCenter(center);
+//        bp.setBackground(new Background(new BackgroundFill(Color.BLACK, CornerRadii.EMPTY, Insets.EMPTY)));
+//        bp.setPadding(new Insets(10));
+
+        Button backButton = new Button("Back");
+        backButton.setAlignment(Pos.BOTTOM_CENTER);
+
+
+
+
+        Label highscoreLabel = new Label("Highscore");
+        highscoreLabel.setTextFill(Color.WHITE);
+        highscoreLabel.setFont(Font.font(null, FontWeight.BOLD, 40));
+
         Label highScore = new Label(FileHandler.readFile());
-
-        BorderPane bp = new BorderPane();
-        bp.setPrefSize(600, 400);
-
-        VBox vBox = new VBox(10, returnButton);
-        vBox.setAlignment(Pos. BOTTOM_CENTER);
-
-        HBox center = new HBox(100, highScore);
-        center.setAlignment(Pos. CENTER);
-
-        HBox hBox = new HBox(100, name1, score1);
-        hBox.setAlignment(Pos. TOP_CENTER);
-
         highScore.setTextFill(Color.WHITE);
-        highScore.setFont(Font.font(null, FontWeight.BOLD, 20));
+        highScore.setFont(Font.font(null, FontWeight.BOLD, 40));
 
-        name1.setTextFill(Color.WHITE);
-        name1.setFont(Font.font(null, FontWeight.BOLD, 20));
 
-        score1.setTextFill(Color.WHITE);
-        score1.setFont(Font.font(null, FontWeight.BOLD, 20));
 
-        bp.setBottom(vBox);
-        bp.setTop(hBox);
-        bp.setCenter(center);
-        bp.setBackground(new Background(new BackgroundFill(Color.BLACK, CornerRadii.EMPTY, Insets.EMPTY)));
-        bp.setPadding(new Insets(10));
+        VBox vBox = new VBox(20);
+        vBox.setPrefSize(600,400);
+        vBox.setAlignment(Pos. TOP_CENTER);
 
-        returnButton.setOnAction(e -> scene.setRoot(startMenu()));
+        vBox.getChildren().addAll(highscoreLabel,highScore, backButton);
 
-        return bp;
+        String path = "src/main/resources/background.png";
+        Image backgroundPng = new Image(Paths.get(path).toUri().toString());
+        BackgroundImage backgroundImage = new BackgroundImage(backgroundPng,BackgroundRepeat.NO_REPEAT,BackgroundRepeat.NO_REPEAT,BackgroundPosition.CENTER,new BackgroundSize(100,100,true,true,true,true));
+        Background background = new Background(backgroundImage);
+
+        vBox.setBackground(background);
+
+//        backButton.setOnAction(e -> scene.setRoot(startMenu()));
+
+
+        return vBox;
+
     }
 
 
@@ -171,7 +200,6 @@ public class App extends Application {
     private Parent gameOver(){
 
         VBox vBox = new VBox(10);
-        vBox.setBackground(new Background(new BackgroundFill(Color.BLACK, CornerRadii.EMPTY, Insets.EMPTY)));
         vBox.setAlignment(Pos.CENTER);
 
         // places a game over gif
@@ -209,11 +237,11 @@ public class App extends Application {
 
         score = 0;
         bombCounter = 0;
-        highScoreLabel.setTextFill(Color.RED);
+        highScoreLabel.setTextFill(Color.BLUEVIOLET);
         highScoreLabel.setFont(Font.font(null, FontWeight.BOLD, 20));
 
         Label l1 = new Label("Game Over!!!");
-        l1.setTextFill(Color.RED);
+        l1.setTextFill(Color.BLUEVIOLET);
         l1.setFont(Font.font(null, FontWeight.BOLD, 50));
 
         Button restart = new Button("Try Again");
@@ -230,8 +258,9 @@ public class App extends Application {
     /** creates the game won screen*/
     private Parent gameWon(){
 
+        SoundHandler.gameWon();
+
         VBox vBox = new VBox();
-        vBox.setBackground(new Background(new BackgroundFill(Color.BLACK, CornerRadii.EMPTY, Insets.EMPTY)));
         vBox.setAlignment(Pos.CENTER);
 
         // places a winning gif
@@ -268,11 +297,11 @@ public class App extends Application {
 
         score = 0;
         bombCounter = 0;
-        highScoreLabel.setTextFill(Color.RED);
+        highScoreLabel.setTextFill(Color.BLUEVIOLET);
         highScoreLabel.setFont(Font.font(null, FontWeight.BOLD, 20));
 
         Label l1 = new Label("Game WON!!!");
-        l1.setTextFill(Color.RED);
+        l1.setTextFill(Color.BLUEVIOLET);
         l1.setFont(Font.font(null, FontWeight.BOLD, 50));
 
         Button restart = new Button("Try Again");

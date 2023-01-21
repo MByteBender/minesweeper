@@ -45,6 +45,7 @@ public class SoundHandler {
         String path = "src/main/resources/gameWon.wav";
         Media media = new Media (Paths.get(path).toUri().toString()) ;
         mediaPlayer = new MediaPlayer(media);
+        mediaPlayer.setCycleCount(((int) Double.POSITIVE_INFINITY));
         mediaPlayer.setVolume(0.25);
         mediaPlayer.play ();
     }
