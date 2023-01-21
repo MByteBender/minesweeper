@@ -26,25 +26,26 @@ import java.util.Objects;
 
 public class App extends Application {
 
-    private final int TILE_SIZE = 40;
-    private  int W = 1000;
-    private int H = 800;
+    public final int TILE_SIZE = 40;
+    public  int W = 1000;
+    public int H = 800;
 
-    private int X_TILES = W / TILE_SIZE;
-    private int Y_TILES = H / TILE_SIZE;
+    public int X_TILES = W / TILE_SIZE;
+    public int Y_TILES = H / TILE_SIZE;
 
-    private int highscore = 0;
+    public Tile tile = new Tile();
+    public int highscore = 0;
     public static int score = 0;
 
-    private final Tile[][] grid = new Tile[X_TILES][Y_TILES];
+   public final Tile[][] grid = new Tile[X_TILES][Y_TILES];
 
     public static Scene scene;
 
-    private Stage primaryStage;
+    public Stage primaryStage;
 
-    private int bombCounter;
+    public int bombCounter;
 
-    private String mode;
+    public String mode;
 
     public int getTILE_SIZE() {
         return TILE_SIZE;
@@ -80,9 +81,7 @@ public class App extends Application {
         return score;
     }
 
-    public Tile getGrid(int x, int y) {
-        return grid[x][y];
-    }
+
 
     public Scene getScene() {
         return scene;
@@ -132,7 +131,7 @@ public class App extends Application {
             H = 400;
             X_TILES = W / TILE_SIZE;
             Y_TILES = H / TILE_SIZE;
-            scene = new Scene(createContent());
+            scene = new Scene(tile.createContent());
             primaryStage.setScene(scene);
         });
 
@@ -143,7 +142,7 @@ public class App extends Application {
             H = 600;
             X_TILES = W / TILE_SIZE;
             Y_TILES = H / TILE_SIZE;
-            scene = new Scene(createContent());
+            scene = new Scene(tile.createContent());
             primaryStage.setScene(scene);
         });
 
@@ -154,7 +153,7 @@ public class App extends Application {
             H = 800;
             X_TILES = W / TILE_SIZE;
             Y_TILES = H / TILE_SIZE;
-            scene = new Scene(createContent());
+            scene = new Scene(tile.createContent());
             primaryStage.setScene(scene);
         });
 
@@ -318,69 +317,69 @@ public class App extends Application {
 
 
     /** creates the game itself*/
-    private Parent createContent() {
-
-        Pane root = new Pane();
-
-
-        root.setPrefSize(W, H);
-
-        // creates the tiles and checks if easy mode is chosen
-        if (Objects.equals(mode, "easy")) {
-            for (int y = 0; y < Y_TILES; y++) {
-                for (int x = 0; x < X_TILES; x++) {
-                    Tile tile = new Tile(x, y, Math.random() < 0.15); //with 15% probability the field is a bomb
-                    if (tile.hasBomb) {
-                        bombCounter++;
-                    }
-                    grid[x][y] = tile; // places a tile at the current x/y position
-                    root.getChildren().add(tile);
-                }
-            }
-
-        // creates the tiles and checks if medium mode is chosen
-        } else if (Objects.equals(mode, "medium")) {
-            for (int y = 0; y < Y_TILES; y++) {
-                for (int x = 0; x < X_TILES; x++) {
-                    Tile tile = new Tile(x, y, Math.random() < 0.18); //with 18% probability the field is a bomb
-                    if (tile.hasBomb) {
-                        bombCounter++;
-                    }
-                    grid[x][y] = tile; // places a tile at the current x/y position
-                    root.getChildren().add(tile);
-                }
-            }
-
-        // creates the tiles and checks if hard mode is chosen
-        } else if (Objects.equals(mode, "hard")) {
-            for (int y = 0; y < Y_TILES; y++) {
-                for (int x = 0; x < X_TILES; x++) {
-                    Tile tile = new Tile(x, y, Math.random() < 0.20); //with 20% probability the field is a bomb
-                    if (tile.hasBomb) {
-                        bombCounter++;
-                    }
-                    grid[x][y] = tile; // places a tile at the current x/y position
-                    root.getChildren().add(tile);
-                }
-            }
-        }
-
-        for (int y = 0; y < Y_TILES; y++) {
-            for (int x = 0; x < X_TILES; x++) {
-                Tile tile = grid[x][y];
-
-                if (tile.hasBomb)
-                    continue;
-
-                long bombs = getNeighbors(tile).stream().filter(t -> t.hasBomb).count();
-
-                if (bombs > 0)
-                    tile.text.setText(String.valueOf(bombs));
-            }
-        }
-
-        return root;
-    }
+//    private Parent createContent() {
+//
+//        Pane root = new Pane();
+//
+//
+//        root.setPrefSize(W, H);
+//
+//        // creates the tiles and checks if easy mode is chosen
+//        if (Objects.equals(mode, "easy")) {
+//            for (int y = 0; y < Y_TILES; y++) {
+//                for (int x = 0; x < X_TILES; x++) {
+//                    Tile tile = new Tile(x, y, Math.random() < 0.15); //with 15% probability the field is a bomb
+//                    if (tile.hasBomb) {
+//                        bombCounter++;
+//                    }
+//                    grid[x][y] = tile; // places a tile at the current x/y position
+//                    root.getChildren().add(tile);
+//                }
+//            }
+//
+//        // creates the tiles and checks if medium mode is chosen
+//        } else if (Objects.equals(mode, "medium")) {
+//            for (int y = 0; y < Y_TILES; y++) {
+//                for (int x = 0; x < X_TILES; x++) {
+//                    Tile tile = new Tile(x, y, Math.random() < 0.18); //with 18% probability the field is a bomb
+//                    if (tile.hasBomb) {
+//                        bombCounter++;
+//                    }
+//                    grid[x][y] = tile; // places a tile at the current x/y position
+//                    root.getChildren().add(tile);
+//                }
+//            }
+//
+//        // creates the tiles and checks if hard mode is chosen
+//        } else if (Objects.equals(mode, "hard")) {
+//            for (int y = 0; y < Y_TILES; y++) {
+//                for (int x = 0; x < X_TILES; x++) {
+//                    Tile tile = new Tile(x, y, Math.random() < 0.20); //with 20% probability the field is a bomb
+//                    if (tile.hasBomb) {
+//                        bombCounter++;
+//                    }
+//                    grid[x][y] = tile; // places a tile at the current x/y position
+//                    root.getChildren().add(tile);
+//                }
+//            }
+//        }
+//
+//        for (int y = 0; y < Y_TILES; y++) {
+//            for (int x = 0; x < X_TILES; x++) {
+//                Tile tile = grid[x][y];
+//
+//                if (tile.hasBomb)
+//                    continue;
+//
+//                long bombs = getNeighbors(tile).stream().filter(t -> t.hasBomb).count();
+//
+//                if (bombs > 0)
+//                    tile.text.setText(String.valueOf(bombs));
+//            }
+//        }
+//
+//        return root;
+//    }
 
 
 
@@ -463,7 +462,7 @@ public class App extends Application {
             H = 400;
             X_TILES = W / TILE_SIZE;
             Y_TILES = H / TILE_SIZE;
-            scene = new Scene(createContent());
+            scene = new Scene(tile.createContent());
             primaryStage.setScene(scene);
         });
 
@@ -474,7 +473,7 @@ public class App extends Application {
             H = 600;
             X_TILES = W / TILE_SIZE;
             Y_TILES = H / TILE_SIZE;
-            scene = new Scene(createContent());
+            scene = new Scene(tile.createContent());
             primaryStage.setScene(scene);
         });
 
@@ -485,7 +484,7 @@ public class App extends Application {
             H = 800;
             X_TILES = W / TILE_SIZE;
             Y_TILES = H / TILE_SIZE;
-            scene = new Scene(createContent());
+            scene = new Scene(tile.createContent());
             primaryStage.setScene(scene);
         });
 
