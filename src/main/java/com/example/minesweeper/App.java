@@ -74,6 +74,13 @@ public class App extends Application {
         vBox.setBackground(new Background(new BackgroundFill(Color.BLACK, CornerRadii.EMPTY, Insets.EMPTY)));
 
 
+        String path = "src/main/resources/background.png";
+        Image backgroundPng = new Image(Paths.get(path).toUri().toString());
+        BackgroundImage backgroundImage = new BackgroundImage(backgroundPng,BackgroundRepeat.NO_REPEAT,BackgroundRepeat.NO_REPEAT,BackgroundPosition.CENTER,new BackgroundSize(100,100,true,true,true,true));
+        Background background = new Background(backgroundImage);
+
+        vBox.setBackground(background);
+
         // sets the grid to 15 x 10 tiles when clicking on the easy-button
         easyButton.setOnAction(e -> {
             System.out.println(scene);
@@ -119,7 +126,6 @@ public class App extends Application {
 
     // creates the scoreroom where the highscore is shown
     private Parent scoreRoom(){
-
 
         Button returnButton = new Button("Back");
         returnButton.setPrefWidth(80);
@@ -175,6 +181,14 @@ public class App extends Application {
 
         Label highScoreLabel = new Label("Score: " + score * 10);
 
+        String pathBackground = "src/main/resources/background.png";
+        Image backgroundPng = new Image(Paths.get(pathBackground).toUri().toString());
+        BackgroundImage backgroundImage = new BackgroundImage(backgroundPng,BackgroundRepeat.NO_REPEAT,BackgroundRepeat.NO_REPEAT,BackgroundPosition.CENTER,new BackgroundSize(100,100,true,true,true,true));
+        Background background = new Background(backgroundImage);
+
+        vBox.setBackground(background);
+
+
         // checks if the actual score is higher than the highscore if yes it saves the score as the highscore
         score = score * 10;
         if (score > highscore){
@@ -224,6 +238,13 @@ public class App extends Application {
         String path = "src/main/resources/gameWon.gif";
         Image gameWonGif = new Image(Paths.get(path).toUri().toString());
         ImageView img3 = new ImageView(gameWonGif);
+
+        String pathBackground = "src/main/resources/background.png";
+        Image backgroundPng = new Image(Paths.get(pathBackground).toUri().toString());
+        BackgroundImage backgroundImage = new BackgroundImage(backgroundPng,BackgroundRepeat.NO_REPEAT,BackgroundRepeat.NO_REPEAT,BackgroundPosition.CENTER,new BackgroundSize(100,100,true,true,true,true));
+        Background background = new Background(backgroundImage);
+
+        vBox.setBackground(background);
 
         Label highScoreLabel = new Label("Score: " + score * 10);
 
@@ -495,11 +516,25 @@ public class App extends Application {
         startLabel.setFont(Font.font(null, FontWeight.BOLD, 40));
 
         Label chooseLabel = new Label("Choose Level: ");
+        chooseLabel.setTextFill(Color.WHITE);
         chooseLabel.setFont(Font.font(20));
 
         VBox vBox = new VBox(20, startLabel, chooseLabel, easyButton, mediumButton, hardButton, scoreButton);
         vBox.setAlignment(Pos. CENTER);
         vBox.setBackground(new Background(new BackgroundFill(Color.BLACK, CornerRadii.EMPTY, Insets.EMPTY)));
+
+//        String path = "src/main/resources/gameWon.gif";
+//        Image gameWonGif = new Image(Paths.get(path).toUri().toString());
+//        ImageView img3 = new ImageView(gameWonGif);
+
+        String path = "src/main/resources/background.png";
+        Image backgroundPng = new Image(Paths.get(path).toUri().toString());
+        BackgroundImage backgroundImage = new BackgroundImage(backgroundPng,BackgroundRepeat.NO_REPEAT,BackgroundRepeat.NO_REPEAT,BackgroundPosition.CENTER,new BackgroundSize(100,100,true,true,true,true));
+        Background background = new Background(backgroundImage);
+
+        vBox.setBackground(background);
+
+
 
         Scene startScene = new Scene(vBox, 600, 400);
         this.primaryStage = primaryStage;
