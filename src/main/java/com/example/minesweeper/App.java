@@ -22,9 +22,11 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+import java.util.Scanner;
 
 public class App extends Application {
 
+    private Scene sceneRules;
     private static final int TILE_SIZE = 40;
     private static  int W = 1000;
     private static  int H = 800;
@@ -49,6 +51,9 @@ public class App extends Application {
 
     // creates the start Menu with an easy medium hard mode and highscore room selection
     private Parent startMenu(){
+
+        Button rulesButton = new Button("Rules");
+        rulesButton.setPrefWidth(80);
 
         Button easyButton = new Button("Easy");
         easyButton.setPrefWidth(80);
@@ -120,6 +125,12 @@ public class App extends Application {
             scene = new Scene(scoreRoom());
             primaryStage.setScene(scene);
         });
+
+        rulesButton.setOnAction(e -> {
+            primaryStage.setScene(sceneRules);
+        });
+
+
         return vBox;
     }
 
@@ -188,7 +199,7 @@ public class App extends Application {
 
         vBox.setBackground(background);
 
-//        backButton.setOnAction(e -> scene.setRoot(startMenu()));
+        backButton.setOnAction(e -> scene.setRoot(startMenu()));
 
 
         return vBox;
@@ -196,6 +207,61 @@ public class App extends Application {
     }
 
 
+    private void rulesButton() {
+
+        Button returnButton = new Button("Back");
+        returnButton.setPrefWidth(80);
+
+        BorderPane rB = new BorderPane();
+        rB.setPrefSize(800, 500);
+
+        Label rules = new Label ("""
+                Choose between three different difficulties:
+                                
+                → Easy - 10 x 15 Raster & 15% Bombs
+                                
+                → Medium - 15 x 15 Raster & 18% Bombs
+                                
+                → Hard - 20 x 25 Raster & 20% Bombs
+                
+                                
+                Explaination Minesweeper:
+                                
+                The game is usually over when a mine is revealed.
+                                
+                The game continues when an empty square is revealed.
+                                
+                If a number is displayed when a square is uncovered, it represents the number of mines,
+                that are hidden in the adjacent 8 fields.
+                                
+                Based on this information, it can be deduced under which of the adjacent fields mines are located
+                and on which fields can be clicked without danger.
+                """);
+        rules.setFont(Font.font(null, FontWeight.BOLD, 15));
+
+        Label rulesHeader = new Label("Rules");
+        rulesHeader.setTextFill(Color.BLUEVIOLET);
+        rulesHeader.setFont(Font.font(null, FontWeight.BOLD, 30));
+
+        HBox hBox = new HBox(100, rulesHeader);
+        hBox.setAlignment(Pos. TOP_CENTER);
+
+        HBox center = new HBox(100, rules);
+        center.setAlignment(Pos. CENTER);
+
+        rules.setTextFill(Color.BLUEVIOLET);
+
+        rB.setBackground(new Background(new BackgroundFill(Color.BLACK, CornerRadii.EMPTY, Insets.EMPTY)));
+        rB.setPadding(new Insets(10));
+
+        rB.setTop(hBox);
+        rB.setBottom(returnButton);
+        rB.setCenter(rules);
+        returnButton.setOnAction(e -> primaryStage.setScene(scene));
+
+        sceneRules = new Scene(rB);
+        primaryStage.setScene(sceneRules);
+    }
     /** creates the game over screen*/
     private Parent gameOver(){
 
@@ -533,6 +599,9 @@ public class App extends Application {
 
         primaryStage.setResizable(false);
 
+        Button rulesButton = new Button("Rules");
+        rulesButton.setPrefWidth(80);
+
         Button scoreButton = new Button("Highscore");
         scoreButton.setPrefWidth(80);
 
@@ -553,7 +622,7 @@ public class App extends Application {
         chooseLabel.setTextFill(Color.WHITE);
         chooseLabel.setFont(Font.font(20));
 
-        VBox vBox = new VBox(20, startLabel, chooseLabel, easyButton, mediumButton, hardButton, scoreButton);
+        VBox vBox = new VBox(20, startLabel, chooseLabel, easyButton, mediumButton, hardButton, scoreButton, rulesButton);
         vBox.setAlignment(Pos. CENTER);
         vBox.setBackground(new Background(new BackgroundFill(Color.BLACK, CornerRadii.EMPTY, Insets.EMPTY)));
 
@@ -609,6 +678,12 @@ public class App extends Application {
         scoreButton.setOnAction(e -> {
             scene = new Scene(scoreRoom());
             primaryStage.setScene(scene);
+        });
+
+        // changes scene to the rulesroom to read the game rules
+        rulesButton.setOnAction(e -> {
+
+            primaryStage.setScene(sceneRules);
         });
 
         primaryStage.setScene(startScene);
