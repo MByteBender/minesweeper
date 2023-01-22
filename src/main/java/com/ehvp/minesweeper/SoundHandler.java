@@ -9,7 +9,7 @@ import java.nio.file.Paths;
  * handles soundcontroll and plays specific sound for the game
  */
 public class SoundHandler {
-
+    private static int count = 0;
     private static MediaPlayer backgroundMediaPlayer;
     private static MediaPlayer mouseClickMediaPlayer;
     private static MediaPlayer bombSoundMediaPlayer;
@@ -18,14 +18,17 @@ public class SoundHandler {
      * creates backgroundmusic for the game and handles the volume
      */
     public static void backgroundMusic() {
+// checks if sound is already playing, so you can't start backgroundmusic twice
+        if (count == 0){
+            String path = "src/main/resources/background.mp3";
+            Media media = new Media(Paths.get(path).toUri().toString());
+            backgroundMediaPlayer = new MediaPlayer(media);
+            backgroundMediaPlayer.setVolume(0.05);
+            backgroundMediaPlayer.setCycleCount(((int) Double.POSITIVE_INFINITY)); //infinite Background music loop
+            backgroundMediaPlayer.play();
+            count ++;
+        }
 
-
-        String path = "src/main/resources/background.mp3";
-        Media media = new Media(Paths.get(path).toUri().toString());
-        backgroundMediaPlayer = new MediaPlayer(media);
-        backgroundMediaPlayer.setVolume(0.05);
-        backgroundMediaPlayer.setCycleCount(((int) Double.POSITIVE_INFINITY)); //infinite Background music loop
-        backgroundMediaPlayer.play();
     }
 
     /**
@@ -33,6 +36,7 @@ public class SoundHandler {
      */
     public static void stopBackgroundMusic() {
         backgroundMediaPlayer.stop();
+        count --;
     }
 
 
