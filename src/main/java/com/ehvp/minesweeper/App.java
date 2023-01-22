@@ -23,7 +23,6 @@ import java.util.*;
 
 public class App extends Application {
 
-
     private static final int TILE_SIZE = 40;
     private static  int W = 1000;
     private static  int H = 800;
@@ -107,8 +106,7 @@ public class App extends Application {
             Y_TILES = H / TILE_SIZE;
             scene = new Scene(createContent());
             primaryStage.setScene(scene);
-            primaryStage.setWidth(TILE_SIZE*15.35);
-            primaryStage.setHeight(TILE_SIZE*10.95);
+            primaryStage.sizeToScene();
             primaryStage.centerOnScreen();
         });
 
@@ -123,8 +121,7 @@ public class App extends Application {
             Y_TILES = H / TILE_SIZE;
             scene = new Scene(createContent());
             primaryStage.setScene(scene);
-            primaryStage.setWidth(TILE_SIZE*20.35);
-            primaryStage.setHeight(TILE_SIZE*15.95);
+            primaryStage.sizeToScene();
             primaryStage.centerOnScreen();
         });
 
@@ -139,8 +136,7 @@ public class App extends Application {
             Y_TILES = H / TILE_SIZE;
             scene = new Scene(createContent());
             primaryStage.setScene(scene);
-            primaryStage.setWidth(TILE_SIZE*25.35);
-            primaryStage.setHeight(TILE_SIZE*20.95);
+            primaryStage.sizeToScene();
             primaryStage.centerOnScreen();
         });
 
@@ -159,7 +155,6 @@ public class App extends Application {
             SoundHandler.mouseClickSound();
             scene = new Scene(rulesRoom());
             primaryStage.setScene(scene);
-            primaryStage.centerOnScreen();
             primaryStage.setWidth(TILE_SIZE*20.35);
             primaryStage.setHeight(TILE_SIZE*15.95);
             primaryStage.centerOnScreen();
@@ -756,8 +751,7 @@ public class App extends Application {
             Y_TILES = H / TILE_SIZE;
             scene = new Scene(createContent());
             primaryStage.setScene(scene);
-            primaryStage.setWidth(TILE_SIZE*15.35);
-            primaryStage.setHeight(TILE_SIZE*10.95);
+            primaryStage.sizeToScene();
             primaryStage.centerOnScreen();
         });
 
@@ -771,8 +765,7 @@ public class App extends Application {
             Y_TILES = H / TILE_SIZE;
             scene = new Scene(createContent());
             primaryStage.setScene(scene);
-            primaryStage.setWidth(TILE_SIZE*20.35);
-            primaryStage.setHeight(TILE_SIZE*15.95);
+            primaryStage.sizeToScene();
             primaryStage.centerOnScreen();
         });
 
@@ -786,8 +779,7 @@ public class App extends Application {
             Y_TILES = H / TILE_SIZE;
             scene = new Scene(createContent());
             primaryStage.setScene(scene);
-            primaryStage.setWidth(TILE_SIZE*25.35);
-            primaryStage.setHeight(TILE_SIZE*20.95);
+            primaryStage.sizeToScene();
             primaryStage.centerOnScreen();
         });
 
