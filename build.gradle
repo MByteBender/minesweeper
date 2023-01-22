@@ -24,8 +24,8 @@ tasks.withType(JavaCompile) {
 }
 
 application {
-    mainModule = 'com.example.minesweeper'
-    mainClass = 'com.example.minesweeper.HelloApplication'
+    mainModule = 'com.ehvp.minesweeper'
+    mainClass = 'com.ehvp.minesweeper.App'
 }
 
 javafx {
