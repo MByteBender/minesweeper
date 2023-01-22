@@ -87,14 +87,12 @@ public class App extends Application {
         HBox bottom = new HBox(10, rulesButton, settingButton);
 
 
-
         startPane.setPadding(new Insets(10));
+        startPane.setPrefSize(800,600);
 
         startPane.setTop(top);
         startPane.setCenter(center);
         startPane.setBottom(bottom);
-
-
 
 
         startPane.setBackground(ImageHandler.backgroundImage());
@@ -157,7 +155,6 @@ public class App extends Application {
             primaryStage.centerOnScreen();
         });
 
-
         return startPane;
     }
 
@@ -167,10 +164,6 @@ public class App extends Application {
 
         Button backButton = new Button("Back");
         backButton.setPrefWidth(80);
-
-        Button resetHighscore = new Button("Reset");
-        backButton.setPrefWidth(80);
-
 
 
         Label highscoreLabel = new Label("Highscore");
@@ -182,7 +175,7 @@ public class App extends Application {
         highScore.setFont(Font.font(null, FontWeight.BOLD, 40));
 
         BorderPane scorePane = new BorderPane();
-        scorePane.setPrefSize(600,400);
+        scorePane.setPrefSize(800,600);
 
         HBox top = new HBox(100, highscoreLabel);
         top.setAlignment(Pos. TOP_CENTER);
@@ -190,7 +183,7 @@ public class App extends Application {
         HBox center = new HBox(100, highScore);
         center.setAlignment(Pos. CENTER);
 
-        HBox bottom = new HBox(100, backButton, resetHighscore);
+        HBox bottom = new HBox(100, backButton);
         center.setAlignment(Pos. CENTER);
 
         scorePane.setTop(top);
@@ -203,16 +196,10 @@ public class App extends Application {
         // sets background Image
         scorePane.setBackground(ImageHandler.backgroundImage());
 
-
-        resetHighscore.setOnAction(e -> {
-            FileHandler.writeToFile(0);
-            highScore.setText(FileHandler.readFile());
-        });
         backButton.setOnAction(e -> scene.setRoot(startMenu()));
 
 
         return scorePane;
-
     }
 
 
@@ -222,7 +209,7 @@ public class App extends Application {
         returnButton.setPrefWidth(80);
 
         BorderPane rB = new BorderPane();
-        rB.setPrefSize(800, 500);
+        rB.setPrefSize(800, 600);
 
         Label rules = new Label ("""
                 Choose between three different difficulties:
@@ -257,13 +244,11 @@ public class App extends Application {
         center.setAlignment(Pos. CENTER);
 
 
-
         rB.setPadding(new Insets(10));
 
         rB.setTop(top);
         rB.setCenter(rules);
         rB.setBottom(returnButton);
-
 
 
         returnButton.setOnAction(e -> scene.setRoot(startMenu()));
@@ -293,7 +278,6 @@ public class App extends Application {
         backButton.setPrefWidth(80);
 
 
-
         Label settingLabel = new Label("Settings");
         settingLabel.setTextFill(Color.WHITE);
         settingLabel.setFont(Font.font(null, FontWeight.BOLD, 40));
@@ -302,17 +286,20 @@ public class App extends Application {
         highScore.setTextFill(Color.WHITE);
         highScore.setFont(Font.font(null, FontWeight.BOLD, 40));
 
+
         BorderPane scorePane = new BorderPane();
-        scorePane.setPrefSize(600,400);
+        scorePane.setPrefSize(800,600);
+
 
         HBox top = new HBox(100, settingLabel);
         top.setAlignment(Pos. TOP_CENTER);
 
-        HBox center = new HBox(100, highScore);
+        VBox center = new VBox(10, musicOnButton, musicOffButton, resetHighscore);
         center.setAlignment(Pos. CENTER);
 
-        HBox bottom = new HBox(100, backButton, resetHighscore, musicOnButton, musicOffButton);
+        HBox bottom = new HBox(100, backButton);
         center.setAlignment(Pos. CENTER);
+
 
         scorePane.setTop(top);
         scorePane.setCenter(center);
@@ -328,6 +315,7 @@ public class App extends Application {
         resetHighscore.setOnAction(e -> {
             FileHandler.writeToFile(0);
             highScore.setText(FileHandler.readFile());
+            SoundHandler.mouseClickSound();
         });
 
         backButton.setOnAction(e -> scene.setRoot(startMenu()));
@@ -336,7 +324,6 @@ public class App extends Application {
 
 
         return scorePane;
-
     }
     /** creates the game over screen*/
     private Parent gameOver(){
@@ -349,7 +336,6 @@ public class App extends Application {
             highscore = score * 10;
             highscore /= 10;
         }
-
         /* checks if the actual highscore is bigger than the highscore
         written in the highscore file if yes it writes it into the highscore file */
         try{
@@ -358,7 +344,6 @@ public class App extends Application {
                 FileHandler.writeToFile(highscore);
                 highscore = 0; // set back to 0 so reset highscore button works correctly
             }
-
         } catch (NumberFormatException ex){
             ex.printStackTrace();
         }
@@ -380,7 +365,6 @@ public class App extends Application {
         vBox.setBackground(ImageHandler.backgroundImage());
 
         restart.setOnAction(e -> scene.setRoot(startMenu()));
-
 
         return vBox;
     }
@@ -427,6 +411,8 @@ public class App extends Application {
         vBox.setAlignment(Pos.CENTER);
         vBox.setBackground(ImageHandler.backgroundImage());
 
+        vBox.setPrefSize(800,600);
+
         restart.setOnAction(e -> scene.setRoot(startMenu())); //sets the scene to the start Menu
 
         return vBox;
@@ -444,7 +430,7 @@ public class App extends Application {
         if (Objects.equals(mode, "easy")) {
             for (int y = 0; y < Y_TILES; y++) { // iterates over the colum
                 for (int x = 0; x < X_TILES; x++) { // iterates over the row
-                    Tile tile = new Tile(x, y, Math.random() < 0.01); //with 15% probability the field is a bomb
+                    Tile tile = new Tile(x, y, Math.random() < 0.15); //with 15% probability the field is a bomb
                     if (tile.hasBomb) {
                         bombCounter++;
                     }
@@ -686,7 +672,6 @@ public class App extends Application {
         HBox bottom = new HBox(10, rulesButton, settingButton);
 
 
-
         startPane.setPadding(new Insets(10));
 
         startPane.setTop(top);
@@ -700,7 +685,7 @@ public class App extends Application {
 
 
 
-        Scene startScene = new Scene(startPane, 600, 400);
+        Scene startScene = new Scene(startPane, 800, 600);
         this.primaryStage = primaryStage;
 
         // sets the grid to 15 x 10 tiles when clicking on the easy-button
@@ -749,6 +734,12 @@ public class App extends Application {
         // changes scene to the rulesroom to read the game rules
         rulesButton.setOnAction(e -> {
             scene = new Scene(rulesRoom());
+            primaryStage.setScene(scene);
+            primaryStage.centerOnScreen();
+        });
+
+        settingButton.setOnAction(e -> {
+            scene = new Scene(settingRoom());
             primaryStage.setScene(scene);
             primaryStage.centerOnScreen();
         });
