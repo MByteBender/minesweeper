@@ -10,26 +10,29 @@ import java.nio.file.Paths;
  */
 public class SoundHandler {
 
-    private static MediaPlayer mediaPlayer;
-
+    private static MediaPlayer backgroundMediaPlayer;
+    private static MediaPlayer mouseClickMediaPlayer;
+    private static MediaPlayer bombSoundMediaPlayer;
+    private static MediaPlayer gameWonMediaPlayer;
     /**
      * creates backgroundmusic for the game and handles the volume
      */
     public static void backgroundMusic() {
+
+
         String path = "src/main/resources/background.mp3";
         Media media = new Media(Paths.get(path).toUri().toString());
-        mediaPlayer = new MediaPlayer(media);
-        mediaPlayer.setVolume(0.05);
-        mediaPlayer.setCycleCount(((int) Double.POSITIVE_INFINITY)); //infinite Background music loop
-        mediaPlayer.play();
+        backgroundMediaPlayer = new MediaPlayer(media);
+        backgroundMediaPlayer.setVolume(0.05);
+        backgroundMediaPlayer.setCycleCount(((int) Double.POSITIVE_INFINITY)); //infinite Background music loop
+        backgroundMediaPlayer.play();
     }
 
     /**
      * stops/turns off background music
      */
     public static void stopBackgroundMusic() {
-        backgroundMusic();
-        mediaPlayer.stop();
+        backgroundMediaPlayer.stop();
     }
 
 
@@ -39,8 +42,8 @@ public class SoundHandler {
     public static void mouseClickSound() {
         String path = "src/main/resources/mouseClick.wav";
         Media media = new Media(Paths.get(path).toUri().toString());
-        mediaPlayer = new MediaPlayer(media);
-        mediaPlayer.play();
+        mouseClickMediaPlayer = new MediaPlayer(media);
+        mouseClickMediaPlayer.play();
     }
 
     /**
@@ -49,20 +52,28 @@ public class SoundHandler {
     public static void bombSound() {
         String path = "src/main/resources/bombSound.wav";
         Media media = new Media(Paths.get(path).toUri().toString());
-        mediaPlayer = new MediaPlayer(media);
-        mediaPlayer.setVolume(0.25);
-        mediaPlayer.play();
+        bombSoundMediaPlayer = new MediaPlayer(media);
+        bombSoundMediaPlayer.setVolume(0.25);
+        bombSoundMediaPlayer.play();
     }
 
     /**
      * creates a sound if you have won the game
      */
-    public static void gameWon() {
+    public static void gameWonSound() {
         String path = "src/main/resources/gameWon.wav";
         Media media = new Media(Paths.get(path).toUri().toString());
-        mediaPlayer = new MediaPlayer(media);
-        mediaPlayer.setCycleCount(((int) Double.POSITIVE_INFINITY));
-        mediaPlayer.setVolume(0.25);
-        mediaPlayer.play();
+        gameWonMediaPlayer = new MediaPlayer(media);
+        gameWonMediaPlayer.setCycleCount(((int) Double.POSITIVE_INFINITY));
+        gameWonMediaPlayer.setVolume(0.25);
+        gameWonMediaPlayer.play();
     }
+
+    /**
+     * stops/turns off Game Won Sound
+     */
+    public static void stopGameWonSound() {
+       gameWonMediaPlayer.stop();
+    }
+
 }

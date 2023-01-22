@@ -99,6 +99,7 @@ public class App extends Application {
 
         // sets the grid to 15 x 10 tiles when clicking on the easy-button
         easyButton.setOnAction(e -> {
+            SoundHandler.mouseClickSound();
             mode = "easy";
             W = 600;
             H = 400;
@@ -106,14 +107,15 @@ public class App extends Application {
             Y_TILES = H / TILE_SIZE;
             scene = new Scene(createContent());
             primaryStage.setScene(scene);
-            primaryStage.setWidth(615);
-            primaryStage.setHeight(400);
+            primaryStage.setWidth(600);
+            primaryStage.setHeight(425);
             primaryStage.centerOnScreen();
         });
 
 
         // sets the grid to 20 x 15 tiles when clicking on the medium-button
         mediumButton.setOnAction(e -> {
+            SoundHandler.mouseClickSound();
             mode = "medium";
             W = 800;
             H = 600;
@@ -129,6 +131,7 @@ public class App extends Application {
 
         // sets the grid to 25 x 20 tiles when clicking on the hard-button
         hardButton.setOnAction(e -> {
+            SoundHandler.mouseClickSound();
             mode = "hard";
             W = 1000;
             H = 800;
@@ -144,6 +147,7 @@ public class App extends Application {
 
         // changes scene to the highscore room
         scoreButton.setOnAction(e -> {
+            SoundHandler.mouseClickSound();
             scene = new Scene(scoreRoom());
             primaryStage.setScene(scene);
             primaryStage.setWidth(615);
@@ -152,6 +156,7 @@ public class App extends Application {
         });
 
         rulesButton.setOnAction(e -> {
+            SoundHandler.mouseClickSound();
             scene = new Scene(rulesRoom());
             primaryStage.setScene(scene);
             primaryStage.centerOnScreen();
@@ -161,6 +166,7 @@ public class App extends Application {
         });
 
         settingButton.setOnAction(e -> {
+            SoundHandler.mouseClickSound();
             scene = new Scene(settingRoom());
             primaryStage.setScene(scene);
             primaryStage.centerOnScreen();
@@ -208,6 +214,7 @@ public class App extends Application {
         scorePane.setBackground(ImageHandler.backgroundImage());
 
         backButton.setOnAction(e -> {
+            SoundHandler.mouseClickSound();
             scene.setRoot(startMenu());
             primaryStage.setWidth(615);
             primaryStage.setHeight(415);
@@ -268,6 +275,7 @@ public class App extends Application {
 
 
         returnButton.setOnAction(e ->  {
+            SoundHandler.mouseClickSound();
             scene.setRoot(startMenu());
             primaryStage.setWidth(615);
             primaryStage.setHeight(415);
@@ -340,13 +348,20 @@ public class App extends Application {
         });
 
         backButton.setOnAction(e -> {
+            SoundHandler.mouseClickSound();
             scene.setRoot(startMenu());
             primaryStage.setWidth(615);
             primaryStage.setHeight(415);
             primaryStage.centerOnScreen();
         });
-        musicOffButton.setOnAction(e -> SoundHandler.stopBackgroundMusic());
-        musicOnButton.setOnAction(e -> SoundHandler.backgroundMusic());
+        musicOffButton.setOnAction(e -> {
+            SoundHandler.stopBackgroundMusic();
+            SoundHandler.mouseClickSound();
+        });
+        musicOnButton.setOnAction(e -> {
+            SoundHandler.backgroundMusic();
+            SoundHandler.mouseClickSound();
+        });
 
 
         return scorePane;
@@ -391,6 +406,7 @@ public class App extends Application {
         vBox.setBackground(ImageHandler.backgroundImage());
 
         restart.setOnAction(e -> {
+            SoundHandler.mouseClickSound();
             scene.setRoot(startMenu());
             primaryStage.setWidth(615);
             primaryStage.setHeight(415);
@@ -405,7 +421,7 @@ public class App extends Application {
     /** creates the game won screen*/
     private Parent gameWon(){
 
-        SoundHandler.gameWon();
+        SoundHandler.gameWonSound();
 
         Label highScoreLabel = new Label("Score: " + score * 10);
 
@@ -446,10 +462,12 @@ public class App extends Application {
         vBox.setPrefSize(800,600);
 
         restart.setOnAction(e -> {
+            SoundHandler.mouseClickSound();
             scene.setRoot(startMenu());
             primaryStage.setWidth(615);
             primaryStage.setHeight(415);
             primaryStage.centerOnScreen();
+            SoundHandler.stopGameWonSound();
         }); //sets the scene to the start Menu
 
         return vBox;
@@ -467,7 +485,7 @@ public class App extends Application {
         if (Objects.equals(mode, "easy")) {
             for (int y = 0; y < Y_TILES; y++) { // iterates over the colum
                 for (int x = 0; x < X_TILES; x++) { // iterates over the row
-                    Tile tile = new Tile(x, y, Math.random() < 0.15); //with 15% probability the field is a bomb
+                    Tile tile = new Tile(x, y, Math.random() < 0.01); //with 15% probability the field is a bomb
                     if (tile.hasBomb) {
                         bombCounter++;
                     }
@@ -727,6 +745,7 @@ public class App extends Application {
 
         // sets the grid to 15 x 10 tiles when clicking on the easy-button
         easyButton.setOnAction(e -> {
+            SoundHandler.mouseClickSound();
             mode = "easy";
             W = 600;
             H = 400;
@@ -741,6 +760,7 @@ public class App extends Application {
 
         // sets the grid to 20 x 15 tiles when clicking on the easy-button
         mediumButton.setOnAction(e -> {
+            SoundHandler.mouseClickSound();
             mode = "medium";
             W = 800;
             H = 600;
@@ -755,6 +775,7 @@ public class App extends Application {
 
         // sets the grid to 25 x 20 tiles when clicking on the easy-button
         hardButton.setOnAction(e -> {
+            SoundHandler.mouseClickSound();
             mode = "hard";
             W = 1000;
             H = 800;
@@ -769,6 +790,7 @@ public class App extends Application {
 
         // changes the scene to the scoreroom to see the highscore
         scoreButton.setOnAction(e -> {
+            SoundHandler.mouseClickSound();
             scene = new Scene(scoreRoom());
             primaryStage.setScene(scene);
             primaryStage.setWidth(615);
@@ -778,6 +800,7 @@ public class App extends Application {
 
         // changes scene to the rulesroom to read the game rules
         rulesButton.setOnAction(e -> {
+            SoundHandler.mouseClickSound();
             scene = new Scene(rulesRoom());
             primaryStage.setScene(scene);
             primaryStage.setWidth(815);
@@ -786,6 +809,7 @@ public class App extends Application {
         });
 
         settingButton.setOnAction(e -> {
+            SoundHandler.mouseClickSound();
             scene = new Scene(settingRoom());
             primaryStage.setScene(scene);
             primaryStage.centerOnScreen();
