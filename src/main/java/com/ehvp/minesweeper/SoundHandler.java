@@ -36,7 +36,9 @@ public class SoundHandler {
      */
     public static void stopBackgroundMusic() {
         backgroundMediaPlayer.stop();
-        count --;
+        if (count == 1) {
+            count--;
+        }
     }
 
 
