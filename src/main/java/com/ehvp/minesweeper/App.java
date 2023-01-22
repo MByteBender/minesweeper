@@ -107,8 +107,8 @@ public class App extends Application {
             Y_TILES = H / TILE_SIZE;
             scene = new Scene(createContent());
             primaryStage.setScene(scene);
-            primaryStage.setWidth(600);
-            primaryStage.setHeight(425);
+            primaryStage.setWidth(615);
+            primaryStage.setHeight(400);
             primaryStage.centerOnScreen();
         });
 
@@ -485,7 +485,7 @@ public class App extends Application {
         if (Objects.equals(mode, "easy")) {
             for (int y = 0; y < Y_TILES; y++) { // iterates over the colum
                 for (int x = 0; x < X_TILES; x++) { // iterates over the row
-                    Tile tile = new Tile(x, y, Math.random() < 0.01); //with 15% probability the field is a bomb
+                    Tile tile = new Tile(x, y, Math.random() < 0.15); //with 15% probability the field is a bomb
                     if (tile.hasBomb) {
                         bombCounter++;
                     }
