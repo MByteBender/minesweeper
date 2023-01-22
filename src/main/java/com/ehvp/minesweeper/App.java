@@ -227,7 +227,6 @@ public class App extends Application {
         returnButton.setPrefWidth(80);
 
         BorderPane rB = new BorderPane();
-        rB.setPrefSize(800, 600);
 
         Label rules = new Label ("""
                 Choose between three different difficulties:
@@ -252,13 +251,13 @@ public class App extends Application {
         rules.setTextFill(Color.WHITE);
 
         Label rulesHeader = new Label("Rules");
-        rulesHeader.setTextFill(Color.BLUEVIOLET);
+        rulesHeader.setTextFill(Color.WHITE);
         rulesHeader.setFont(Font.font(null, FontWeight.BOLD, 30));
 
         HBox top = new HBox(100, rulesHeader);
         top.setAlignment(Pos. TOP_CENTER);
 
-        HBox center = new HBox(100, rules);
+        HBox center = new HBox(50, rules);
         center.setAlignment(Pos. CENTER);
 
 
@@ -399,9 +398,6 @@ public class App extends Application {
         VBox vBox = new VBox(10,highScoreLabel,gameOverLabel, restart, ImageHandler.gameOverImage());
         vBox.setAlignment(Pos.CENTER);
         vBox.setBackground(ImageHandler.backgroundImage());
-
-        vBox.setMaxWidth(TILE_SIZE * 15.35);
-        vBox.setMaxHeight(TILE_SIZE * 10.95);
 
         restart.setOnAction(e -> {
             SoundHandler.mouseClickSound();
@@ -641,6 +637,9 @@ public class App extends Application {
             if (hasBomb) {
                 SoundHandler.bombSound();
                 scene.setRoot(gameOver());
+                primaryStage.setWidth(TILE_SIZE*15.35);
+                primaryStage.setHeight(TILE_SIZE*10.95);
+                primaryStage.centerOnScreen();
                 return;
             }
 
