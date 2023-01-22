@@ -141,6 +141,10 @@ public class App extends Application {
         Button backButton = new Button("Back");
         backButton.setPrefWidth(80);
 
+        Button resetHighscore = new Button("Reset");
+        backButton.setPrefWidth(80);
+
+
 
         Label highscoreLabel = new Label("Highscore");
         highscoreLabel.setTextFill(Color.WHITE);
@@ -159,9 +163,12 @@ public class App extends Application {
         HBox center = new HBox(100, highScore);
         center.setAlignment(Pos. CENTER);
 
+        HBox bottom = new HBox(100, backButton, resetHighscore);
+        center.setAlignment(Pos. CENTER);
+
         scorePane.setTop(top);
         scorePane.setCenter(center);
-        scorePane.setBottom(backButton);
+        scorePane.setBottom(bottom);
 
 
         scorePane.setPadding(new Insets(10));
@@ -174,6 +181,10 @@ public class App extends Application {
         scorePane.setBackground(background);
 
 
+        resetHighscore.setOnAction(e -> {
+            FileHandler.writeToFile(0);
+            highScore.setText(FileHandler.readFile());
+        });
         backButton.setOnAction(e -> scene.setRoot(startMenu()));
 
 
@@ -285,7 +296,9 @@ public class App extends Application {
             int scoreOutFile = Integer.parseInt(FileHandler.readFile()); //converts the highscore String to a int
             if (highscore > scoreOutFile){
                 FileHandler.writeToFile(highscore);
+                highscore = 0; // set back to 0 so reset highscore button works correctly
             }
+
         } catch (NumberFormatException ex){
             ex.printStackTrace();
         }
