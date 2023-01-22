@@ -17,6 +17,7 @@ import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 
 import java.util.*;
+import java.util.concurrent.atomic.AtomicInteger;
 
 public class App extends Application {
 
@@ -281,17 +282,10 @@ public class App extends Application {
         Button resetHighscore = new Button("Reset-Highscore");
         backButton.setPrefWidth(80);
 
-        Button musicOffButton = new Button("Music Off");
+        Button musicOnOffButton = new Button("Music On/Off");
         backButton.setPrefWidth(80);
 
-        Button musicOnButton = new Button("Music On");
-        backButton.setPrefWidth(80);
-
-
-        Button soundEffectsOff = new Button("Sound-Effects Off");
-        backButton.setPrefWidth(80);
-
-        Button soundEffectsOn = new Button("Sound-Effects On");
+        Button soundOnOffEffects = new Button("Sound-Effects On/Off");
         backButton.setPrefWidth(80);
 
 
@@ -311,7 +305,7 @@ public class App extends Application {
         HBox top = new HBox(100, settingLabel);
         top.setAlignment(Pos. TOP_CENTER);
 
-        VBox center = new VBox(10, musicOnButton, musicOffButton, soundEffectsOn, soundEffectsOff, resetHighscore);
+        VBox center = new VBox(10, musicOnOffButton, soundOnOffEffects, resetHighscore);
         center.setAlignment(Pos. CENTER);
 
         HBox bottom = new HBox(100, backButton);
@@ -343,24 +337,28 @@ public class App extends Application {
             primaryStage.centerOnScreen();
         });
 
-        musicOffButton.setOnAction(e -> {
-            SoundHandler.stopBackgroundMusic();
-            SoundHandler.mouseClickSound();
+        AtomicInteger count = new AtomicInteger(1);
+
+        musicOnOffButton.setOnAction(e -> {
+            if(count.get() == 0) {
+                SoundHandler.backgroundMusic();
+                SoundHandler.mouseClickSound();
+                count.getAndIncrement();
+            }else if (count.get() == 1){
+                SoundHandler.stopBackgroundMusic();
+                count.getAndDecrement();
+            }
         });
 
-        musicOnButton.setOnAction(e -> {
-            SoundHandler.backgroundMusic();
-            SoundHandler.mouseClickSound();
-        });
-
-        soundEffectsOn.setOnAction(e -> {
-            SoundHandler.startSoundEffects();
-            SoundHandler.mouseClickSound();
-
-        });
-
-        soundEffectsOff.setOnAction(e -> {
-            SoundHandler.stopSoundEffects();
+        soundOnOffEffects.setOnAction(e -> {
+            if(count.get() == 0) {
+                SoundHandler.startSoundEffects();
+                SoundHandler.mouseClickSound();
+                count.getAndIncrement();
+            }else if (count.get() == 1){
+                SoundHandler.stopSoundEffects();
+                count.getAndDecrement();
+            }
         });
 
         return scorePane;
