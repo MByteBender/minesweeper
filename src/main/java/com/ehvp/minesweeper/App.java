@@ -80,12 +80,7 @@ public class App extends Application {
         vBox.setBackground(new Background(new BackgroundFill(Color.BLACK, CornerRadii.EMPTY, Insets.EMPTY)));
 
 
-        String path = "src/main/resources/background.png";
-        Image backgroundPng = new Image(Paths.get(path).toUri().toString());
-        BackgroundImage backgroundImage = new BackgroundImage(backgroundPng,BackgroundRepeat.NO_REPEAT,BackgroundRepeat.NO_REPEAT,BackgroundPosition.CENTER,new BackgroundSize(100,100,true,true,true,true));
-        Background background = new Background(backgroundImage);
-
-        vBox.setBackground(background);
+        vBox.setBackground(ImageHandler.backgroundImage());
 
         // sets the grid to 15 x 10 tiles when clicking on the easy-button
         easyButton.setOnAction(e -> {
@@ -183,11 +178,7 @@ public class App extends Application {
         scorePane.setPadding(new Insets(10));
 
         // sets background Image
-        String path = "src/main/resources/background.png";
-        Image backgroundPng = new Image(Paths.get(path).toUri().toString());
-        BackgroundImage backgroundImage = new BackgroundImage(backgroundPng,BackgroundRepeat.NO_REPEAT,BackgroundRepeat.NO_REPEAT,BackgroundPosition.CENTER,new BackgroundSize(100,100,true,true,true,true));
-        Background background = new Background(backgroundImage);
-        scorePane.setBackground(background);
+        scorePane.setBackground(ImageHandler.backgroundImage());
 
 
         resetHighscore.setOnAction(e -> {
@@ -257,13 +248,8 @@ public class App extends Application {
 
         returnButton.setOnAction(e -> scene.setRoot(startMenu()));
 
-        // sets background Image
-        String pathBackground = "src/main/resources/background.png";
-        Image backgroundPng = new Image(Paths.get(pathBackground).toUri().toString());
-        BackgroundImage backgroundImage = new BackgroundImage(backgroundPng,BackgroundRepeat.NO_REPEAT,BackgroundRepeat.NO_REPEAT,BackgroundPosition.CENTER,new BackgroundSize(100,100,true,true,true,true));
-        Background background = new Background(backgroundImage);
 
-        rB.setBackground(background);
+        rB.setBackground(ImageHandler.backgroundImage());
 
         Label l1 = new Label("Rules");
         l1.setTextFill(Color.BLUEVIOLET);
@@ -316,11 +302,7 @@ public class App extends Application {
         scorePane.setPadding(new Insets(10));
 
         // sets background Image
-        String path = "src/main/resources/background.png";
-        Image backgroundPng = new Image(Paths.get(path).toUri().toString());
-        BackgroundImage backgroundImage = new BackgroundImage(backgroundPng,BackgroundRepeat.NO_REPEAT,BackgroundRepeat.NO_REPEAT,BackgroundPosition.CENTER,new BackgroundSize(100,100,true,true,true,true));
-        Background background = new Background(backgroundImage);
-        scorePane.setBackground(background);
+        scorePane.setBackground(ImageHandler.backgroundImage());
 
 
         resetHighscore.setOnAction(e -> {
@@ -342,19 +324,12 @@ public class App extends Application {
         VBox vBox = new VBox(10);
         vBox.setAlignment(Pos.CENTER);
 
-        // places a game over gif
-        String path = "src/main/resources/gameOver.gif";
-        Image gameOverGif = new Image(Paths.get(path).toUri().toString());
-        ImageView img2 = new ImageView(gameOverGif);
+
 
         Label highScoreLabel = new Label("Score: " + score * 10);
 
-        String pathBackground = "src/main/resources/background.png";
-        Image backgroundPng = new Image(Paths.get(pathBackground).toUri().toString());
-        BackgroundImage backgroundImage = new BackgroundImage(backgroundPng,BackgroundRepeat.NO_REPEAT,BackgroundRepeat.NO_REPEAT,BackgroundPosition.CENTER,new BackgroundSize(100,100,true,true,true,true));
-        Background background = new Background(backgroundImage);
 
-        vBox.setBackground(background);
+        vBox.setBackground(ImageHandler.backgroundImage());
 
 
         // checks if the actual score is higher than the highscore if yes it saves the score as the highscore
@@ -389,7 +364,7 @@ public class App extends Application {
         Button restart = new Button("Try Again");
         restart.setPrefWidth(150);
 
-        vBox.getChildren().addAll(highScoreLabel,l1, restart, img2);
+        vBox.getChildren().addAll(highScoreLabel,l1, restart, ImageHandler.gameOverImage());
         restart.setOnAction(e -> scene.setRoot(startMenu()));
 
 
@@ -405,17 +380,7 @@ public class App extends Application {
         VBox vBox = new VBox();
         vBox.setAlignment(Pos.CENTER);
 
-        // places a winning gif
-        String path = "src/main/resources/gameWon.gif";
-        Image gameWonGif = new Image(Paths.get(path).toUri().toString());
-        ImageView img3 = new ImageView(gameWonGif);
-
-        String pathBackground = "src/main/resources/background.png";
-        Image backgroundPng = new Image(Paths.get(pathBackground).toUri().toString());
-        BackgroundImage backgroundImage = new BackgroundImage(backgroundPng,BackgroundRepeat.NO_REPEAT,BackgroundRepeat.NO_REPEAT,BackgroundPosition.CENTER,new BackgroundSize(100,100,true,true,true,true));
-        Background background = new Background(backgroundImage);
-
-        vBox.setBackground(background);
+        vBox.setBackground(ImageHandler.backgroundImage());
 
         Label highScoreLabel = new Label("Score: " + score * 10);
 
@@ -449,7 +414,7 @@ public class App extends Application {
         Button restart = new Button("Try Again");
         restart.setPrefWidth(150);
 
-        vBox.getChildren().addAll(highScoreLabel,l1, restart, img3);
+        vBox.getChildren().addAll(highScoreLabel,l1, restart, ImageHandler.gameWonImage());
         restart.setOnAction(e -> scene.setRoot(startMenu())); //sets the scene to the start Menu
 
         FileHandler.createFile();

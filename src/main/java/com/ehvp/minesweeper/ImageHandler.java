@@ -1,6 +1,7 @@
 package com.ehvp.minesweeper;
 
 import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
 
 import java.nio.file.Paths;
@@ -19,5 +20,20 @@ public class ImageHandler {
     }
 
 
+    public static ImageView gameOverImage(){
+        String path = "src/main/resources/gameOver.gif";
+        Image gameOverGif = new Image(Paths.get(path).toUri().toString());
+        ImageView gameOverGifView = new ImageView(gameOverGif);
+
+        return gameOverGifView;
+    }
+
+    public static ImageView gameWonImage(){
+        String path = "src/main/resources/gameOver.gif";
+        Image gameOverGif = new Image(Paths.get(path).toUri().toString());
+        ImageView gameImageGifView = new ImageView(gameOverGif);
+
+        return gameImageGifView;
+    }
 
 }
