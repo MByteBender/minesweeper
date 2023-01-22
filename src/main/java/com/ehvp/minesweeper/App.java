@@ -91,6 +91,7 @@ public class App extends Application {
             Y_TILES = H / TILE_SIZE;
             scene = new Scene(createContent());
             primaryStage.setScene(scene);
+            primaryStage.centerOnScreen();
         });
 
 
@@ -103,6 +104,7 @@ public class App extends Application {
             Y_TILES = H / TILE_SIZE;
             scene = new Scene(createContent());
             primaryStage.setScene(scene);
+            primaryStage.centerOnScreen();
         });
 
 
@@ -115,6 +117,7 @@ public class App extends Application {
             Y_TILES = H / TILE_SIZE;
             scene = new Scene(createContent());
             primaryStage.setScene(scene);
+            primaryStage.centerOnScreen();
         });
 
 
@@ -122,16 +125,19 @@ public class App extends Application {
         scoreButton.setOnAction(e -> {
             scene = new Scene(scoreRoom());
             primaryStage.setScene(scene);
+            primaryStage.centerOnScreen();
         });
 
         rulesButton.setOnAction(e -> {
             scene = new Scene(rulesRoom());
             primaryStage.setScene(scene);
+            primaryStage.centerOnScreen();
         });
 
         settingButton.setOnAction(e -> {
             scene = new Scene(settingRoom());
             primaryStage.setScene(scene);
+            primaryStage.centerOnScreen();
         });
 
 
@@ -685,6 +691,7 @@ public class App extends Application {
             Y_TILES = H / TILE_SIZE;
             scene = new Scene(createContent());
             primaryStage.setScene(scene);
+            primaryStage.centerOnScreen();
         });
 
         // sets the grid to 20 x 15 tiles when clicking on the easy-button
@@ -696,6 +703,7 @@ public class App extends Application {
             Y_TILES = H / TILE_SIZE;
             scene = new Scene(createContent());
             primaryStage.setScene(scene);
+            primaryStage.centerOnScreen();
         });
 
         // sets the grid to 25 x 20 tiles when clicking on the easy-button
@@ -707,19 +715,21 @@ public class App extends Application {
             Y_TILES = H / TILE_SIZE;
             scene = new Scene(createContent());
             primaryStage.setScene(scene);
+            primaryStage.centerOnScreen();
         });
 
         // changes the scene to the scoreroom to see the highscore
         scoreButton.setOnAction(e -> {
             scene = new Scene(scoreRoom());
             primaryStage.setScene(scene);
+            primaryStage.centerOnScreen();
         });
 
         // changes scene to the rulesroom to read the game rules
         rulesButton.setOnAction(e -> {
             scene = new Scene(rulesRoom());
             primaryStage.setScene(scene);
-
+            primaryStage.centerOnScreen();
         });
 
         primaryStage.setScene(startScene);
