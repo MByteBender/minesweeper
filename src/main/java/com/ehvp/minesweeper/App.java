@@ -107,8 +107,8 @@ public class App extends Application {
             Y_TILES = H / TILE_SIZE;
             scene = new Scene(createContent());
             primaryStage.setScene(scene);
-            primaryStage.setMinWidth(TILE_SIZE*15.35);
-            primaryStage.setMinHeight(TILE_SIZE*10.95);
+            primaryStage.setWidth(TILE_SIZE*15.35);
+            primaryStage.setHeight(TILE_SIZE*10.95);
             primaryStage.centerOnScreen();
         });
 
@@ -123,8 +123,8 @@ public class App extends Application {
             Y_TILES = H / TILE_SIZE;
             scene = new Scene(createContent());
             primaryStage.setScene(scene);
-            primaryStage.setMinWidth(TILE_SIZE*20.35);
-            primaryStage.setMinHeight(TILE_SIZE*15.95);
+            primaryStage.setWidth(TILE_SIZE*20.35);
+            primaryStage.setHeight(TILE_SIZE*15.95);
             primaryStage.centerOnScreen();
         });
 
@@ -139,8 +139,8 @@ public class App extends Application {
             Y_TILES = H / TILE_SIZE;
             scene = new Scene(createContent());
             primaryStage.setScene(scene);
-            primaryStage.setMinWidth(TILE_SIZE*25.35);
-            primaryStage.setMinHeight(TILE_SIZE*20.95);
+            primaryStage.setWidth(TILE_SIZE*25.35);
+            primaryStage.setHeight(TILE_SIZE*20.95);
             primaryStage.centerOnScreen();
         });
 
@@ -150,8 +150,8 @@ public class App extends Application {
             SoundHandler.mouseClickSound();
             scene = new Scene(scoreRoom());
             primaryStage.setScene(scene);
-            primaryStage.setMinWidth(TILE_SIZE*15.35);
-            primaryStage.setMinHeight(TILE_SIZE*10.95);
+            primaryStage.setWidth(TILE_SIZE*15.35);
+            primaryStage.setHeight(TILE_SIZE*10.95);
             primaryStage.centerOnScreen();
         });
 
@@ -160,8 +160,8 @@ public class App extends Application {
             scene = new Scene(rulesRoom());
             primaryStage.setScene(scene);
             primaryStage.centerOnScreen();
-            primaryStage.setMinWidth(TILE_SIZE*20.35);
-            primaryStage.setMinHeight(TILE_SIZE*15.95);
+            primaryStage.setWidth(TILE_SIZE*20.35);
+            primaryStage.setHeight(TILE_SIZE*15.95);
             primaryStage.centerOnScreen();
         });
 
@@ -216,8 +216,8 @@ public class App extends Application {
         backButton.setOnAction(e -> {
             SoundHandler.mouseClickSound();
             scene.setRoot(startMenu());
-            primaryStage.setMinWidth(TILE_SIZE*15.35);
-            primaryStage.setMinHeight(TILE_SIZE*10.95);
+            primaryStage.setWidth(TILE_SIZE*15.35);
+            primaryStage.setHeight(TILE_SIZE*10.95);
             primaryStage.centerOnScreen();
         });
 
@@ -277,8 +277,8 @@ public class App extends Application {
         returnButton.setOnAction(e ->  {
             SoundHandler.mouseClickSound();
             scene.setRoot(startMenu());
-            primaryStage.setMinWidth(TILE_SIZE*15.35);
-            primaryStage.setMinHeight(TILE_SIZE*10.95);
+            primaryStage.setWidth(TILE_SIZE*15.35);
+            primaryStage.setHeight(TILE_SIZE*10.95);
             primaryStage.centerOnScreen();
         });
 
@@ -350,8 +350,8 @@ public class App extends Application {
         backButton.setOnAction(e -> {
             SoundHandler.mouseClickSound();
             scene.setRoot(startMenu());
-            primaryStage.setMinWidth(TILE_SIZE*15.35);
-            primaryStage.setMinHeight(TILE_SIZE*10.95);
+            primaryStage.setWidth(TILE_SIZE*15.35);
+            primaryStage.setHeight(TILE_SIZE*10.95);
             primaryStage.centerOnScreen();
         });
         musicOffButton.setOnAction(e -> {
@@ -405,11 +405,14 @@ public class App extends Application {
         vBox.setAlignment(Pos.CENTER);
         vBox.setBackground(ImageHandler.backgroundImage());
 
+        vBox.setMaxWidth(TILE_SIZE * 15.35);
+        vBox.setMaxHeight(TILE_SIZE * 10.95);
+
         restart.setOnAction(e -> {
             SoundHandler.mouseClickSound();
             scene.setRoot(startMenu());
-            primaryStage.setMinWidth(TILE_SIZE * 15.35);
-            primaryStage.setMinHeight(TILE_SIZE * 10.95);
+            primaryStage.setWidth(TILE_SIZE * 15.35);
+            primaryStage.setHeight(TILE_SIZE * 10.95);
             primaryStage.centerOnScreen();
         });
 
@@ -459,13 +462,13 @@ public class App extends Application {
         vBox.setAlignment(Pos.CENTER);
         vBox.setBackground(ImageHandler.backgroundImage());
 
-        vBox.setPrefSize(800,600);
+        vBox.setPrefSize(TILE_SIZE * 15.35, TILE_SIZE * 10.95);
 
         restart.setOnAction(e -> {
             SoundHandler.mouseClickSound();
             scene.setRoot(startMenu());
-            primaryStage.setMinWidth(TILE_SIZE*15.35);
-            primaryStage.setMinHeight(TILE_SIZE*10.95);
+            primaryStage.setWidth(TILE_SIZE*15.35);
+            primaryStage.setHeight(TILE_SIZE*10.95);
             primaryStage.centerOnScreen();
             SoundHandler.stopGameWonSound();
         }); //sets the scene to the start Menu
@@ -753,8 +756,8 @@ public class App extends Application {
             Y_TILES = H / TILE_SIZE;
             scene = new Scene(createContent());
             primaryStage.setScene(scene);
-            primaryStage.setMinWidth(TILE_SIZE*15.35);
-            primaryStage.setMinHeight(TILE_SIZE*10.95);
+            primaryStage.setWidth(TILE_SIZE*15.35);
+            primaryStage.setHeight(TILE_SIZE*10.95);
             primaryStage.centerOnScreen();
         });
 
@@ -768,8 +771,8 @@ public class App extends Application {
             Y_TILES = H / TILE_SIZE;
             scene = new Scene(createContent());
             primaryStage.setScene(scene);
-            primaryStage.setMinWidth(TILE_SIZE*20.35);
-            primaryStage.setMinHeight(TILE_SIZE*15.95);
+            primaryStage.setWidth(TILE_SIZE*20.35);
+            primaryStage.setHeight(TILE_SIZE*15.95);
             primaryStage.centerOnScreen();
         });
 
@@ -783,8 +786,8 @@ public class App extends Application {
             Y_TILES = H / TILE_SIZE;
             scene = new Scene(createContent());
             primaryStage.setScene(scene);
-            primaryStage.setMinWidth(TILE_SIZE*25.35);
-            primaryStage.setMinHeight(TILE_SIZE*20.95);
+            primaryStage.setWidth(TILE_SIZE*25.35);
+            primaryStage.setHeight(TILE_SIZE*20.95);
             primaryStage.centerOnScreen();
         });
 
@@ -793,8 +796,8 @@ public class App extends Application {
             SoundHandler.mouseClickSound();
             scene = new Scene(scoreRoom());
             primaryStage.setScene(scene);
-            primaryStage.setMinWidth(TILE_SIZE*15.35);
-            primaryStage.setMinHeight(TILE_SIZE*10.95);
+            primaryStage.setWidth(TILE_SIZE*15.35);
+            primaryStage.setHeight(TILE_SIZE*10.95);
             primaryStage.centerOnScreen();
         });
 
@@ -803,8 +806,8 @@ public class App extends Application {
             SoundHandler.mouseClickSound();
             scene = new Scene(rulesRoom());
             primaryStage.setScene(scene);
-            primaryStage.setMinWidth(TILE_SIZE*20.35);
-            primaryStage.setMinHeight(TILE_SIZE*15.95);
+            primaryStage.setWidth(TILE_SIZE*20.35);
+            primaryStage.setHeight(TILE_SIZE*15.95);
             primaryStage.centerOnScreen();
         });
 
