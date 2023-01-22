@@ -24,6 +24,14 @@ public class SoundHandler {
         mediaPlayer.play();
     }
 
+    /**
+     * stops/turns off background music
+     */
+    public static void stopBackgroundMusic() {
+        backgroundMusic();
+        mediaPlayer.stop();
+    }
+
 
     /**
      * creates a mousclicksound when you click a tile

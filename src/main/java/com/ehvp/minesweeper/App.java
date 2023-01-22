@@ -52,6 +52,9 @@ public class App extends Application {
         Button rulesButton = new Button("Rules");
         rulesButton.setPrefWidth(80);
 
+        Button settingButton = new Button("Settings");
+        settingButton.setPrefWidth(80);
+
         Button easyButton = new Button("Easy");
         easyButton.setPrefWidth(80);
 
@@ -71,7 +74,8 @@ public class App extends Application {
         Label chooseLabel = new Label("Choose Level: ");
         chooseLabel.setFont(Font.font(20));
         chooseLabel.setTextFill(Color.WHITE);
-        VBox vBox = new VBox(20, startLabel, chooseLabel, easyButton, mediumButton, hardButton, scoreButton, rulesButton);
+        VBox vBox = new VBox(20, startLabel, chooseLabel,
+                easyButton, mediumButton, hardButton, scoreButton, rulesButton, settingButton);
         vBox.setAlignment(Pos. CENTER);
         vBox.setBackground(new Background(new BackgroundFill(Color.BLACK, CornerRadii.EMPTY, Insets.EMPTY)));
 
@@ -127,6 +131,11 @@ public class App extends Application {
 
         rulesButton.setOnAction(e -> {
             scene = new Scene(rulesRoom());
+            primaryStage.setScene(scene);
+        });
+
+        settingButton.setOnAction(e -> {
+            scene = new Scene(settingRoom());
             primaryStage.setScene(scene);
         });
 
@@ -262,6 +271,71 @@ public class App extends Application {
 
         return rB;
     }
+
+    private Parent settingRoom(){
+
+        Button backButton = new Button("Back");
+        backButton.setPrefWidth(80);
+
+        Button resetHighscore = new Button("Reset-Highscore");
+        backButton.setPrefWidth(80);
+
+        Button musicOffButton = new Button("Music Off");
+        backButton.setPrefWidth(80);
+
+        Button musicOnButton = new Button("Music On");
+        backButton.setPrefWidth(80);
+
+
+
+        Label settingLabel = new Label("Settings");
+        settingLabel.setTextFill(Color.WHITE);
+        settingLabel.setFont(Font.font(null, FontWeight.BOLD, 40));
+
+        Label highScore = new Label(FileHandler.readFile());
+        highScore.setTextFill(Color.WHITE);
+        highScore.setFont(Font.font(null, FontWeight.BOLD, 40));
+
+        BorderPane scorePane = new BorderPane();
+        scorePane.setPrefSize(600,400);
+
+        HBox top = new HBox(100, settingLabel);
+        top.setAlignment(Pos. TOP_CENTER);
+
+        HBox center = new HBox(100, highScore);
+        center.setAlignment(Pos. CENTER);
+
+        HBox bottom = new HBox(100, backButton, resetHighscore, musicOnButton, musicOffButton);
+        center.setAlignment(Pos. CENTER);
+
+        scorePane.setTop(top);
+        scorePane.setCenter(center);
+        scorePane.setBottom(bottom);
+
+
+        scorePane.setPadding(new Insets(10));
+
+        // sets background Image
+        String path = "src/main/resources/background.png";
+        Image backgroundPng = new Image(Paths.get(path).toUri().toString());
+        BackgroundImage backgroundImage = new BackgroundImage(backgroundPng,BackgroundRepeat.NO_REPEAT,BackgroundRepeat.NO_REPEAT,BackgroundPosition.CENTER,new BackgroundSize(100,100,true,true,true,true));
+        Background background = new Background(backgroundImage);
+        scorePane.setBackground(background);
+
+
+        resetHighscore.setOnAction(e -> {
+            FileHandler.writeToFile(0);
+            highScore.setText(FileHandler.readFile());
+        });
+
+        backButton.setOnAction(e -> scene.setRoot(startMenu()));
+        musicOffButton.setOnAction(e -> SoundHandler.stopBackgroundMusic());
+        musicOnButton.setOnAction(e -> SoundHandler.backgroundMusic());
+
+
+        return scorePane;
+
+    }
     /** creates the game over screen*/
     private Parent gameOver(){
 
@@ -394,8 +468,8 @@ public class App extends Application {
 
         // creates the tiles and checks if easy mode is chosen
         if (Objects.equals(mode, "easy")) {
-            for (int y = 0; y < Y_TILES; y++) {
-                for (int x = 0; x < X_TILES; x++) {
+            for (int y = 0; y < Y_TILES; y++) { // iterates over the colum
+                for (int x = 0; x < X_TILES; x++) { // iterates over the row
                     Tile tile = new Tile(x, y, Math.random() < 0.15); //with 15% probability the field is a bomb
                     if (tile.hasBomb) {
                         bombCounter++;
@@ -595,7 +669,10 @@ public class App extends Application {
     @Override
     public void start(Stage primaryStage) {
 
+        // creates a highscore file if it doesn't exist
         FileHandler.createFile();
+
+        // starts backgroundmusic
         SoundHandler.backgroundMusic();
 
         primaryStage.setResizable(false);
@@ -627,16 +704,8 @@ public class App extends Application {
         vBox.setAlignment(Pos. CENTER);
         vBox.setBackground(new Background(new BackgroundFill(Color.BLACK, CornerRadii.EMPTY, Insets.EMPTY)));
 
-
-
-        // sets background picture
-        String path = "src/main/resources/background.png";
-        Image backgroundPng = new Image(Paths.get(path).toUri().toString());
-        BackgroundImage backgroundImage = new BackgroundImage(backgroundPng,BackgroundRepeat.NO_REPEAT,BackgroundRepeat.NO_REPEAT,BackgroundPosition.CENTER,new BackgroundSize(100,100,true,true,true,true));
-        Background background = new Background(backgroundImage);
-
-        vBox.setBackground(background);
-
+        // sets background Image
+        vBox.setBackground(ImageHandler.backgroundImage());
 
 
         Scene startScene = new Scene(vBox, 600, 400);

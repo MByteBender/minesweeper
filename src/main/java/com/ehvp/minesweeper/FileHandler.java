@@ -19,7 +19,6 @@ public class FileHandler {
             File myObj = new File("src/main/resources/highscore.dat");
             if (myObj.createNewFile()) {
                 writeToFile(0);
-                System.out.println("File created: " + myObj.getName());
             }
         } catch (IOException e) {
             System.out.println("An error occurred.");
