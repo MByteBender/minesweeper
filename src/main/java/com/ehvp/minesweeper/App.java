@@ -49,6 +49,7 @@ public class App extends Application {
     // creates the start Menu with an easy medium hard mode and highscore room selection
     private Parent startMenu(){
 
+        BorderPane startPane = new BorderPane();
         Button rulesButton = new Button("Rules");
         rulesButton.setPrefWidth(80);
 
@@ -74,13 +75,29 @@ public class App extends Application {
         Label chooseLabel = new Label("Choose Level: ");
         chooseLabel.setFont(Font.font(20));
         chooseLabel.setTextFill(Color.WHITE);
-        VBox vBox = new VBox(20, startLabel, chooseLabel,
-                easyButton, mediumButton, hardButton, scoreButton, rulesButton, settingButton);
-        vBox.setAlignment(Pos. CENTER);
-        vBox.setBackground(new Background(new BackgroundFill(Color.BLACK, CornerRadii.EMPTY, Insets.EMPTY)));
 
 
-        vBox.setBackground(ImageHandler.backgroundImage());
+        VBox top = new VBox(10, startLabel, chooseLabel);
+        top.setAlignment(Pos. TOP_CENTER);
+
+        VBox center = new VBox(25, easyButton, mediumButton, hardButton, scoreButton);
+        center.setAlignment(Pos. CENTER);
+
+
+        HBox bottom = new HBox(10, rulesButton, settingButton);
+
+
+
+        startPane.setPadding(new Insets(10));
+
+        startPane.setTop(top);
+        startPane.setCenter(center);
+        startPane.setBottom(bottom);
+
+
+
+
+        startPane.setBackground(ImageHandler.backgroundImage());
 
         // sets the grid to 15 x 10 tiles when clicking on the easy-button
         easyButton.setOnAction(e -> {
@@ -141,7 +158,7 @@ public class App extends Application {
         });
 
 
-        return vBox;
+        return startPane;
     }
 
 
@@ -211,13 +228,10 @@ public class App extends Application {
                 Choose between three different difficulties:
 
                 → Easy - 10 x 15 Raster & 15% Bombs
-
                 → Medium - 15 x 15 Raster & 18% Bombs
-
                 → Hard - 20 x 25 Raster & 20% Bombs
 
-
-                Explaination Minesweeper:
+                Explanation Minesweeper:
 
                 The game is usually over when a mine is revealed.
 
@@ -327,16 +341,7 @@ public class App extends Application {
     /** creates the game over screen*/
     private Parent gameOver(){
 
-        VBox vBox = new VBox(10);
-        vBox.setAlignment(Pos.CENTER);
-
-
-
         Label highScoreLabel = new Label("Score: " + score * 10);
-
-
-        vBox.setBackground(ImageHandler.backgroundImage());
-
 
         // checks if the actual score is higher than the highscore if yes it saves the score as the highscore
         score = score * 10;
@@ -360,17 +365,20 @@ public class App extends Application {
 
         score = 0;
         bombCounter = 0;
-        highScoreLabel.setTextFill(Color.BLUEVIOLET);
+        highScoreLabel.setTextFill(Color.WHITE);
         highScoreLabel.setFont(Font.font(null, FontWeight.BOLD, 20));
 
-        Label l1 = new Label("Game Over!!!");
-        l1.setTextFill(Color.BLUEVIOLET);
-        l1.setFont(Font.font(null, FontWeight.BOLD, 50));
+        Label gameOverLabel = new Label("Game Over!!!");
+        gameOverLabel.setTextFill(Color.WHITE);
+        gameOverLabel.setFont(Font.font(null, FontWeight.BOLD, 50));
 
         Button restart = new Button("Try Again");
         restart.setPrefWidth(150);
 
-        vBox.getChildren().addAll(highScoreLabel,l1, restart, ImageHandler.gameOverImage());
+        VBox vBox = new VBox(10,highScoreLabel,gameOverLabel, restart, ImageHandler.gameOverImage());
+        vBox.setAlignment(Pos.CENTER);
+        vBox.setBackground(ImageHandler.backgroundImage());
+
         restart.setOnAction(e -> scene.setRoot(startMenu()));
 
 
@@ -382,11 +390,6 @@ public class App extends Application {
     private Parent gameWon(){
 
         SoundHandler.gameWon();
-
-        VBox vBox = new VBox();
-        vBox.setAlignment(Pos.CENTER);
-
-        vBox.setBackground(ImageHandler.backgroundImage());
 
         Label highScoreLabel = new Label("Score: " + score * 10);
 
@@ -410,20 +413,21 @@ public class App extends Application {
 
         score = 0;
         bombCounter = 0;
-        highScoreLabel.setTextFill(Color.BLUEVIOLET);
+        highScoreLabel.setTextFill(Color.WHITE);
         highScoreLabel.setFont(Font.font(null, FontWeight.BOLD, 20));
 
-        Label l1 = new Label("Game WON!!!");
-        l1.setTextFill(Color.BLUEVIOLET);
-        l1.setFont(Font.font(null, FontWeight.BOLD, 50));
+        Label gameWonLabel = new Label("Game WON!!!");
+        gameWonLabel.setTextFill(Color.WHITE);
+        gameWonLabel.setFont(Font.font(null, FontWeight.BOLD, 50));
 
         Button restart = new Button("Try Again");
         restart.setPrefWidth(150);
 
-        vBox.getChildren().addAll(highScoreLabel,l1, restart, ImageHandler.gameWonImage());
-        restart.setOnAction(e -> scene.setRoot(startMenu())); //sets the scene to the start Menu
+        VBox vBox = new VBox(10,highScoreLabel,gameWonLabel, restart, ImageHandler.gameOverImage());
+        vBox.setAlignment(Pos.CENTER);
+        vBox.setBackground(ImageHandler.backgroundImage());
 
-        FileHandler.createFile();
+        restart.setOnAction(e -> scene.setRoot(startMenu())); //sets the scene to the start Menu
 
         return vBox;
     }
@@ -434,14 +438,13 @@ public class App extends Application {
 
         Pane root = new Pane();
 
-
         root.setPrefSize(W, H);
 
         // creates the tiles and checks if easy mode is chosen
         if (Objects.equals(mode, "easy")) {
             for (int y = 0; y < Y_TILES; y++) { // iterates over the colum
                 for (int x = 0; x < X_TILES; x++) { // iterates over the row
-                    Tile tile = new Tile(x, y, Math.random() < 0.15); //with 15% probability the field is a bomb
+                    Tile tile = new Tile(x, y, Math.random() < 0.01); //with 15% probability the field is a bomb
                     if (tile.hasBomb) {
                         bombCounter++;
                     }
@@ -640,19 +643,17 @@ public class App extends Application {
     @Override
     public void start(Stage primaryStage) {
 
-        // creates a highscore file if it doesn't exist
-        FileHandler.createFile();
-
-        // starts backgroundmusic
         SoundHandler.backgroundMusic();
-
+        FileHandler.createFile();
         primaryStage.setResizable(false);
 
+
+        BorderPane startPane = new BorderPane();
         Button rulesButton = new Button("Rules");
         rulesButton.setPrefWidth(80);
 
-        Button scoreButton = new Button("Highscore");
-        scoreButton.setPrefWidth(80);
+        Button settingButton = new Button("Settings");
+        settingButton.setPrefWidth(80);
 
         Button easyButton = new Button("Easy");
         easyButton.setPrefWidth(80);
@@ -663,23 +664,43 @@ public class App extends Application {
         Button hardButton = new Button("Hard");
         hardButton.setPrefWidth(80);
 
+        Button scoreButton = new Button("Highscore");
+        scoreButton.setPrefWidth(80);
+
         Label startLabel = new Label("MINESWEEPER");
         startLabel.setTextFill(Color.WHITE);
         startLabel.setFont(Font.font(null, FontWeight.BOLD, 40));
 
         Label chooseLabel = new Label("Choose Level: ");
-        chooseLabel.setTextFill(Color.WHITE);
         chooseLabel.setFont(Font.font(20));
-
-        VBox vBox = new VBox(20, startLabel, chooseLabel, easyButton, mediumButton, hardButton, scoreButton, rulesButton);
-        vBox.setAlignment(Pos. CENTER);
-        vBox.setBackground(new Background(new BackgroundFill(Color.BLACK, CornerRadii.EMPTY, Insets.EMPTY)));
-
-        // sets background Image
-        vBox.setBackground(ImageHandler.backgroundImage());
+        chooseLabel.setTextFill(Color.WHITE);
 
 
-        Scene startScene = new Scene(vBox, 600, 400);
+        VBox top = new VBox(10, startLabel, chooseLabel);
+        top.setAlignment(Pos. TOP_CENTER);
+
+        VBox center = new VBox(25, easyButton, mediumButton, hardButton, scoreButton);
+        center.setAlignment(Pos. CENTER);
+
+
+        HBox bottom = new HBox(10, rulesButton, settingButton);
+
+
+
+        startPane.setPadding(new Insets(10));
+
+        startPane.setTop(top);
+        startPane.setCenter(center);
+        startPane.setBottom(bottom);
+
+
+
+
+        startPane.setBackground(ImageHandler.backgroundImage());
+
+
+
+        Scene startScene = new Scene(startPane, 600, 400);
         this.primaryStage = primaryStage;
 
         // sets the grid to 15 x 10 tiles when clicking on the easy-button
@@ -735,9 +756,7 @@ public class App extends Application {
         primaryStage.setScene(startScene);
         primaryStage.setTitle("Minesweeper!");
         primaryStage.show();
-
     }
-
 
     public static void main(String[] args) {
         launch(args);
