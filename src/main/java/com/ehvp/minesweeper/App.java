@@ -88,7 +88,7 @@ public class App extends Application {
 
 
         startPane.setPadding(new Insets(10));
-        startPane.setPrefSize(800,600);
+        startPane.setMaxSize(600,400);
 
         startPane.setTop(top);
         startPane.setCenter(center);
@@ -106,6 +106,8 @@ public class App extends Application {
             Y_TILES = H / TILE_SIZE;
             scene = new Scene(createContent());
             primaryStage.setScene(scene);
+            primaryStage.setWidth(615);
+            primaryStage.setHeight(400);
             primaryStage.centerOnScreen();
         });
 
@@ -119,6 +121,8 @@ public class App extends Application {
             Y_TILES = H / TILE_SIZE;
             scene = new Scene(createContent());
             primaryStage.setScene(scene);
+            primaryStage.setWidth(815);
+            primaryStage.setHeight(600);
             primaryStage.centerOnScreen();
         });
 
@@ -132,6 +136,8 @@ public class App extends Application {
             Y_TILES = H / TILE_SIZE;
             scene = new Scene(createContent());
             primaryStage.setScene(scene);
+            primaryStage.setWidth(1015);
+            primaryStage.setHeight(800);
             primaryStage.centerOnScreen();
         });
 
@@ -140,12 +146,17 @@ public class App extends Application {
         scoreButton.setOnAction(e -> {
             scene = new Scene(scoreRoom());
             primaryStage.setScene(scene);
+            primaryStage.setWidth(615);
+            primaryStage.setHeight(415);
             primaryStage.centerOnScreen();
         });
 
         rulesButton.setOnAction(e -> {
             scene = new Scene(rulesRoom());
             primaryStage.setScene(scene);
+            primaryStage.centerOnScreen();
+            primaryStage.setWidth(815);
+            primaryStage.setHeight(500);
             primaryStage.centerOnScreen();
         });
 
@@ -175,7 +186,7 @@ public class App extends Application {
         highScore.setFont(Font.font(null, FontWeight.BOLD, 40));
 
         BorderPane scorePane = new BorderPane();
-        scorePane.setPrefSize(800,600);
+        scorePane.setPrefSize(600,400);
 
         HBox top = new HBox(100, highscoreLabel);
         top.setAlignment(Pos. TOP_CENTER);
@@ -196,7 +207,12 @@ public class App extends Application {
         // sets background Image
         scorePane.setBackground(ImageHandler.backgroundImage());
 
-        backButton.setOnAction(e -> scene.setRoot(startMenu()));
+        backButton.setOnAction(e -> {
+            scene.setRoot(startMenu());
+            primaryStage.setWidth(615);
+            primaryStage.setHeight(415);
+            primaryStage.centerOnScreen();
+        });
 
 
         return scorePane;
@@ -251,7 +267,12 @@ public class App extends Application {
         rB.setBottom(returnButton);
 
 
-        returnButton.setOnAction(e -> scene.setRoot(startMenu()));
+        returnButton.setOnAction(e ->  {
+            scene.setRoot(startMenu());
+            primaryStage.setWidth(615);
+            primaryStage.setHeight(415);
+            primaryStage.centerOnScreen();
+        });
 
 
         rB.setBackground(ImageHandler.backgroundImage());
@@ -288,7 +309,7 @@ public class App extends Application {
 
 
         BorderPane scorePane = new BorderPane();
-        scorePane.setPrefSize(800,600);
+        scorePane.setPrefSize(600,400);
 
 
         HBox top = new HBox(100, settingLabel);
@@ -318,7 +339,12 @@ public class App extends Application {
             SoundHandler.mouseClickSound();
         });
 
-        backButton.setOnAction(e -> scene.setRoot(startMenu()));
+        backButton.setOnAction(e -> {
+            scene.setRoot(startMenu());
+            primaryStage.setWidth(615);
+            primaryStage.setHeight(415);
+            primaryStage.centerOnScreen();
+        });
         musicOffButton.setOnAction(e -> SoundHandler.stopBackgroundMusic());
         musicOnButton.setOnAction(e -> SoundHandler.backgroundMusic());
 
@@ -364,7 +390,13 @@ public class App extends Application {
         vBox.setAlignment(Pos.CENTER);
         vBox.setBackground(ImageHandler.backgroundImage());
 
-        restart.setOnAction(e -> scene.setRoot(startMenu()));
+        restart.setOnAction(e -> {
+            scene.setRoot(startMenu());
+            primaryStage.setWidth(615);
+            primaryStage.setHeight(415);
+            primaryStage.centerOnScreen();
+        });
+
 
         return vBox;
     }
@@ -413,7 +445,12 @@ public class App extends Application {
 
         vBox.setPrefSize(800,600);
 
-        restart.setOnAction(e -> scene.setRoot(startMenu())); //sets the scene to the start Menu
+        restart.setOnAction(e -> {
+            scene.setRoot(startMenu());
+            primaryStage.setWidth(615);
+            primaryStage.setHeight(415);
+            primaryStage.centerOnScreen();
+        }); //sets the scene to the start Menu
 
         return vBox;
     }
@@ -685,7 +722,7 @@ public class App extends Application {
 
 
 
-        Scene startScene = new Scene(startPane, 800, 600);
+        Scene startScene = new Scene(startPane, 600, 400);
         this.primaryStage = primaryStage;
 
         // sets the grid to 15 x 10 tiles when clicking on the easy-button
@@ -697,6 +734,8 @@ public class App extends Application {
             Y_TILES = H / TILE_SIZE;
             scene = new Scene(createContent());
             primaryStage.setScene(scene);
+            primaryStage.setWidth(615);
+            primaryStage.setHeight(400);
             primaryStage.centerOnScreen();
         });
 
@@ -709,6 +748,8 @@ public class App extends Application {
             Y_TILES = H / TILE_SIZE;
             scene = new Scene(createContent());
             primaryStage.setScene(scene);
+            primaryStage.setWidth(815);
+            primaryStage.setHeight(600);
             primaryStage.centerOnScreen();
         });
 
@@ -721,6 +762,8 @@ public class App extends Application {
             Y_TILES = H / TILE_SIZE;
             scene = new Scene(createContent());
             primaryStage.setScene(scene);
+            primaryStage.setWidth(1015);
+            primaryStage.setHeight(800);
             primaryStage.centerOnScreen();
         });
 
@@ -728,6 +771,8 @@ public class App extends Application {
         scoreButton.setOnAction(e -> {
             scene = new Scene(scoreRoom());
             primaryStage.setScene(scene);
+            primaryStage.setWidth(615);
+            primaryStage.setHeight(415);
             primaryStage.centerOnScreen();
         });
 
@@ -735,6 +780,8 @@ public class App extends Application {
         rulesButton.setOnAction(e -> {
             scene = new Scene(rulesRoom());
             primaryStage.setScene(scene);
+            primaryStage.setWidth(815);
+            primaryStage.setHeight(515);
             primaryStage.centerOnScreen();
         });
 
