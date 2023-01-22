@@ -9,6 +9,7 @@ import java.nio.file.Paths;
  * handles soundcontroll and plays specific sound for the game
  */
 public class SoundHandler {
+
     private static int count = 0;
     private static MediaPlayer backgroundMediaPlayer;
     private static MediaPlayer mouseClickMediaPlayer;
@@ -30,7 +31,6 @@ public class SoundHandler {
         }
 
     }
-
     /**
      * stops/turns off background music
      */
@@ -40,8 +40,6 @@ public class SoundHandler {
             count--;
         }
     }
-
-
     /**
      * creates a mousclicksound when you click a tile
      */
@@ -51,7 +49,6 @@ public class SoundHandler {
         mouseClickMediaPlayer = new MediaPlayer(media);
         mouseClickMediaPlayer.play();
     }
-
     /**
      * creates a bombsound when you hit a mine
      */
@@ -62,7 +59,6 @@ public class SoundHandler {
         bombSoundMediaPlayer.setVolume(0.25);
         bombSoundMediaPlayer.play();
     }
-
     /**
      * creates a sound if you have won the game
      */
@@ -74,7 +70,6 @@ public class SoundHandler {
         gameWonMediaPlayer.setVolume(0.25);
         gameWonMediaPlayer.play();
     }
-
     /**
      * stops/turns off Game Won Sound
      */

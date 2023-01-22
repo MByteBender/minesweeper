@@ -8,8 +8,6 @@ import java.util.Scanner;
  */
 
 public class FileHandler {
-
-
     /**
      * creates a highscore-file in the resources directory and handels errors
      * checks also if file already exists
@@ -25,7 +23,6 @@ public class FileHandler {
             e.printStackTrace();
         }
     }
-
     /**
      * writes the highscore in the file and converts the score to a String to write it correctly to the file
      */
@@ -40,7 +37,6 @@ public class FileHandler {
             e.printStackTrace();
         }
     }
-
     /**
      * reads the score out of the highscore.dat file and handels an exception when the file is not existend
      */
@@ -59,6 +55,5 @@ public class FileHandler {
             e.printStackTrace();
             return "";
         }
-
     }
 }

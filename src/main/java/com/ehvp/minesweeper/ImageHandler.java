@@ -8,32 +8,26 @@ import java.nio.file.Paths;
 
 public class ImageHandler {
 
-
-
     public static Background backgroundImage(){
         String path = "src/main/resources/background.png";
         Image backgroundPng = new Image(Paths.get(path).toUri().toString());
         BackgroundImage backgroundImage = new BackgroundImage(backgroundPng, BackgroundRepeat.NO_REPEAT,BackgroundRepeat.NO_REPEAT, BackgroundPosition.CENTER,new BackgroundSize(100,100,true,true,true,true));
-        Background background = new Background(backgroundImage);
 
-        return background;
+        return new Background(backgroundImage);
     }
-
 
     public static ImageView gameOverImage(){
         String path = "src/main/resources/gameOver.gif";
         Image gameOverGif = new Image(Paths.get(path).toUri().toString());
-        ImageView gameOverGifView = new ImageView(gameOverGif);
 
-        return gameOverGifView;
+        return new ImageView(gameOverGif);
     }
 
     public static ImageView gameWonImage(){
         String path = "src/main/resources/gameOver.gif";
         Image gameOverGif = new Image(Paths.get(path).toUri().toString());
-        ImageView gameImageGifView = new ImageView(gameOverGif);
 
-        return gameImageGifView;
+        return new ImageView(gameOverGif);
     }
 
 }

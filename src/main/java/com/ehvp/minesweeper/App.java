@@ -1,8 +1,6 @@
 package com.ehvp.minesweeper;
 import javafx.application.Application;
 import javafx.scene.Scene;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.text.FontWeight;
@@ -18,7 +16,6 @@ import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 
-import java.nio.file.Paths;
 import java.util.*;
 
 public class App extends Application {
@@ -26,24 +23,15 @@ public class App extends Application {
     private static final int TILE_SIZE = 40;
     private static  int W = 1000;
     private static  int H = 800;
-
     private static  int X_TILES = W / TILE_SIZE;
     private static  int Y_TILES = H / TILE_SIZE;
-
     private int highscore = 0;
     private  int score = 0;
-
     private final Tile[][] grid = new Tile[X_TILES][Y_TILES];
-
     private Scene scene;
-
     private Stage primaryStage;
-
     private int bombCounter;
-
     private String mode;
-
-
 
     // creates the start Menu with an easy medium hard mode and highscore room selection
     private Parent startMenu(){
@@ -93,7 +81,6 @@ public class App extends Application {
         startPane.setCenter(center);
         startPane.setBottom(bottom);
 
-
         startPane.setBackground(ImageHandler.backgroundImage());
 
         // sets the grid to 15 x 10 tiles when clicking on the easy-button
@@ -110,7 +97,6 @@ public class App extends Application {
             primaryStage.centerOnScreen();
         });
 
-
         // sets the grid to 20 x 15 tiles when clicking on the medium-button
         mediumButton.setOnAction(e -> {
             SoundHandler.mouseClickSound();
@@ -124,7 +110,6 @@ public class App extends Application {
             primaryStage.sizeToScene();
             primaryStage.centerOnScreen();
         });
-
 
         // sets the grid to 25 x 20 tiles when clicking on the hard-button
         hardButton.setOnAction(e -> {
@@ -140,7 +125,6 @@ public class App extends Application {
             primaryStage.centerOnScreen();
         });
 
-
         // changes scene to the highscore room
         scoreButton.setOnAction(e -> {
             SoundHandler.mouseClickSound();
@@ -151,6 +135,7 @@ public class App extends Application {
             primaryStage.centerOnScreen();
         });
 
+        // changes scene to the rules room
         rulesButton.setOnAction(e -> {
             SoundHandler.mouseClickSound();
             scene = new Scene(rulesRoom());
@@ -160,6 +145,7 @@ public class App extends Application {
             primaryStage.centerOnScreen();
         });
 
+        // changes scene to the settings room
         settingButton.setOnAction(e -> {
             SoundHandler.mouseClickSound();
             scene = new Scene(settingRoom());
@@ -186,6 +172,7 @@ public class App extends Application {
         highScore.setTextFill(Color.WHITE);
         highScore.setFont(Font.font(null, FontWeight.BOLD, 40));
 
+
         BorderPane scorePane = new BorderPane();
         scorePane.setPrefSize(600,400);
 
@@ -208,6 +195,7 @@ public class App extends Application {
         // sets background Image
         scorePane.setBackground(ImageHandler.backgroundImage());
 
+
         backButton.setOnAction(e -> {
             SoundHandler.mouseClickSound();
             scene.setRoot(startMenu());
@@ -216,10 +204,8 @@ public class App extends Application {
             primaryStage.centerOnScreen();
         });
 
-
         return scorePane;
     }
-
 
     private Parent rulesRoom() {
 
@@ -278,6 +264,7 @@ public class App extends Application {
 
 
         rB.setBackground(ImageHandler.backgroundImage());
+
 
         Label l1 = new Label("Rules");
         l1.setTextFill(Color.BLUEVIOLET);
@@ -348,15 +335,16 @@ public class App extends Application {
             primaryStage.setHeight(TILE_SIZE*10.95);
             primaryStage.centerOnScreen();
         });
+
         musicOffButton.setOnAction(e -> {
             SoundHandler.stopBackgroundMusic();
             SoundHandler.mouseClickSound();
         });
+
         musicOnButton.setOnAction(e -> {
             SoundHandler.backgroundMusic();
             SoundHandler.mouseClickSound();
         });
-
 
         return scorePane;
     }
@@ -407,11 +395,8 @@ public class App extends Application {
             primaryStage.centerOnScreen();
         });
 
-
         return vBox;
     }
-
-
     /** creates the game won screen*/
     private Parent gameWon(){
 
@@ -466,8 +451,6 @@ public class App extends Application {
 
         return vBox;
     }
-
-
     /** creates the game itself*/
     private Parent createContent() {
 
@@ -570,7 +553,6 @@ public class App extends Application {
         return neighbors;
     }
 
-
     private class Tile extends StackPane {
 
         private final int x, y;
@@ -582,7 +564,6 @@ public class App extends Application {
         private final Rectangle border = new Rectangle(TILE_SIZE - 2, TILE_SIZE - 2);
 
         private final Text text = new Text();
-
 
         // constructor of the tile object with x  y postion and a boolean to see if the tile has a bomb
         public Tile(int x, int y, boolean hasBomb) {
@@ -602,7 +583,6 @@ public class App extends Application {
             setTranslateX(x * TILE_SIZE);
             setTranslateY(y * TILE_SIZE);
 
-
             // checks if the mouse is right or left clicked
             border.addEventFilter(MouseEvent.MOUSE_CLICKED, event -> {
                 if (event.getButton() == MouseButton.PRIMARY) {
@@ -619,6 +599,7 @@ public class App extends Application {
                     }
                 }
             });
+
             setOnMouseClicked(e -> {
                 // plays a click sound when the mouse is clicked
                 SoundHandler.mouseClickSound();
@@ -677,7 +658,6 @@ public class App extends Application {
         }
     }
 
-
     @Override
     public void start(Stage primaryStage) {
 
@@ -731,10 +711,7 @@ public class App extends Application {
         startPane.setBottom(bottom);
 
 
-
-
         startPane.setBackground(ImageHandler.backgroundImage());
-
 
 
         Scene startScene = new Scene(startPane, 600, 400);
