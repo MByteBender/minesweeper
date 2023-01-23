@@ -452,7 +452,7 @@ public class App extends Application {
         Button restart = new Button("Try Again");
         restart.setPrefWidth(150);
 
-        VBox vBox = new VBox(10,highScoreLabel,gameWonLabel, restart, ImageHandler.gameOverImage());
+        VBox vBox = new VBox(3,highScoreLabel,gameWonLabel, restart, ImageHandler.gameWonImage());
         vBox.setAlignment(Pos.CENTER);
         vBox.setBackground(ImageHandler.backgroundImage());
 

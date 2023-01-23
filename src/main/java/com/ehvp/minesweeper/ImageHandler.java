@@ -24,7 +24,7 @@ public class ImageHandler {
     }
 
     public static ImageView gameWonImage(){
-        String path = "src/main/resources/gameOver.gif";
+        String path = "src/main/resources/gameWon.gif";
         Image gameOverGif = new Image(Paths.get(path).toUri().toString());
 
         return new ImageView(gameOverGif);
