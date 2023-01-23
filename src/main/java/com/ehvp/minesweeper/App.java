@@ -360,6 +360,7 @@ public class App extends Application {
         });
 
         soundEffectsOff.setOnAction(e -> {
+            SoundHandler.mouseClickSound();
             SoundHandler.stopSoundEffects();
         });
 
