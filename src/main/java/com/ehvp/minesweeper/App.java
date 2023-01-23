@@ -532,8 +532,6 @@ public class App extends Application {
         return root;
     }
 
-
-
     private List<Tile> getNeighbors(Tile tile) {
 
         List<Tile> neighbors = new ArrayList<>();
@@ -620,7 +618,6 @@ public class App extends Application {
                 SoundHandler.mouseClickSound();
             });
         }
-
 
         /** reveals a tile*/
         public void open() {
