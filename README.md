@@ -48,6 +48,9 @@ Have fun! :)
 - Mihailo Vucinic
 - Simon Weisser
 
+Part of the Base code is taken from Almas Baimagambetov (https://youtu.be/JwcyxuKko_M)
+Code Segments from Almas : part of Tileclass and part of Creatcontentmethode, getNeighbors 
+
 Copyright (c) 2023 FH Campus Wien
 
 This project, Minesweeper, is the property of FH Campus Wien and is protected by copyright laws.

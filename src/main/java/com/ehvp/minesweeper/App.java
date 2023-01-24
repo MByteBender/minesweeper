@@ -19,7 +19,6 @@ import javafx.scene.text.Text;
 import java.util.*;
 
 public class App extends Application {
-
     private static final int TILE_SIZE = 40;
     private static  int W = 1000;
     private static  int H = 800;
@@ -32,6 +31,144 @@ public class App extends Application {
     private Stage primaryStage;
     private int bombCounter;
     private String mode;
+
+    @Override
+    public void start(Stage primaryStage) {
+
+        SoundHandler.backgroundMusic();
+        FileHandler.createFile();
+        primaryStage.setResizable(false);
+
+
+        BorderPane startPane = new BorderPane();
+        Button rulesButton = new Button("Rules");
+        rulesButton.setPrefWidth(80);
+
+        Button settingButton = new Button("Settings");
+        settingButton.setPrefWidth(80);
+
+        Button easyButton = new Button("Easy");
+        easyButton.setPrefWidth(80);
+
+        Button mediumButton = new Button("Medium");
+        mediumButton.setPrefWidth(80);
+
+        Button hardButton = new Button("Hard");
+        hardButton.setPrefWidth(80);
+
+        Button scoreButton = new Button("Highscore");
+        scoreButton.setPrefWidth(80);
+
+        Label startLabel = new Label("MINESWEEPER");
+        startLabel.setTextFill(Color.WHITE);
+        startLabel.setFont(Font.font(null, FontWeight.BOLD, 40));
+
+        Label chooseLabel = new Label("Choose Level: ");
+        chooseLabel.setFont(Font.font(20));
+        chooseLabel.setTextFill(Color.WHITE);
+
+
+        VBox top = new VBox(10, startLabel, chooseLabel);
+        top.setAlignment(Pos. TOP_CENTER);
+
+        VBox center = new VBox(25, easyButton, mediumButton, hardButton, scoreButton);
+        center.setAlignment(Pos. CENTER);
+
+
+        HBox bottom = new HBox(10, rulesButton, settingButton);
+
+
+        startPane.setPadding(new Insets(10));
+
+        startPane.setTop(top);
+        startPane.setCenter(center);
+        startPane.setBottom(bottom);
+
+
+        startPane.setBackground(ImageHandler.backgroundImage());
+
+
+        Scene startScene = new Scene(startPane, 600, 400);
+        this.primaryStage = primaryStage;
+
+        // sets the grid to 15 x 10 tiles when clicking on the easy-button
+        easyButton.setOnAction(e -> {
+            SoundHandler.mouseClickSound();
+            mode = "easy";
+            W = 600;
+            H = 400;
+            X_TILES = W / TILE_SIZE;
+            Y_TILES = H / TILE_SIZE;
+            scene = new Scene(createContent());
+            primaryStage.setScene(scene);
+            primaryStage.sizeToScene();
+            primaryStage.centerOnScreen();
+        });
+
+        // sets the grid to 20 x 15 tiles when clicking on the easy-button
+        mediumButton.setOnAction(e -> {
+            SoundHandler.mouseClickSound();
+            mode = "medium";
+            W = 800;
+            H = 600;
+            X_TILES = W / TILE_SIZE;
+            Y_TILES = H / TILE_SIZE;
+            scene = new Scene(createContent());
+            primaryStage.setScene(scene);
+            primaryStage.sizeToScene();
+            primaryStage.centerOnScreen();
+        });
+
+        // sets the grid to 25 x 20 tiles when clicking on the easy-button
+        hardButton.setOnAction(e -> {
+            SoundHandler.mouseClickSound();
+            mode = "hard";
+            W = 1000;
+            H = 800;
+            X_TILES = W / TILE_SIZE;
+            Y_TILES = H / TILE_SIZE;
+            scene = new Scene(createContent());
+            primaryStage.setScene(scene);
+            primaryStage.sizeToScene();
+            primaryStage.centerOnScreen();
+        });
+
+        // changes the scene to the scoreroom to see the highscore
+        scoreButton.setOnAction(e -> {
+            SoundHandler.mouseClickSound();
+            scene = new Scene(scoreRoom());
+            primaryStage.setScene(scene);
+            primaryStage.setWidth(TILE_SIZE*15.35);
+            primaryStage.setHeight(TILE_SIZE*10.95);
+            primaryStage.centerOnScreen();
+        });
+
+        // changes scene to the rulesroom to read the game rules
+        rulesButton.setOnAction(e -> {
+            SoundHandler.mouseClickSound();
+            scene = new Scene(rulesRoom());
+            primaryStage.setScene(scene);
+            primaryStage.setWidth(TILE_SIZE*20.35);
+            primaryStage.setHeight(TILE_SIZE*15.95);
+            primaryStage.centerOnScreen();
+        });
+
+        settingButton.setOnAction(e -> {
+            SoundHandler.mouseClickSound();
+            scene = new Scene(settingRoom());
+            primaryStage.setScene(scene);
+            primaryStage.centerOnScreen();
+        });
+
+        primaryStage.setScene(startScene);
+        primaryStage.setTitle("Minesweeper!");
+        primaryStage.show();
+    }
+
+    public static void main(String[] args) {
+        launch(args);
+    }
+
 
     // creates the start Menu with an easy medium hard mode and highscore room selection
     private Parent startMenu(){
@@ -374,8 +511,7 @@ public class App extends Application {
         // checks if the actual score is higher than the highscore if yes it saves the score as the highscore
         score = score * 10;
         if (score > highscore){
-            highscore = score * 10;
-            highscore /= 10;
+            highscore = score;
         }
         /* checks if the actual highscore is bigger than the highscore
         written in the highscore file if yes it writes it into the highscore file */
@@ -425,8 +561,7 @@ public class App extends Application {
         // checks if the actual score is higher than the highscore if yes it saves the score as the highscore
         score = score * 10;
         if (score > highscore){
-            highscore = score * 10;
-            highscore /= 10;
+            highscore = score;
         }
 
         /* checks if the actual highscore is bigger than the highscore
@@ -489,7 +624,7 @@ public class App extends Application {
                 }
             }
 
-            // creates the tiles and checks if medium mode is chosen
+        // creates the tiles and checks if medium mode is chosen
         } else if (Objects.equals(mode, "medium")) {
             for (int y = 0; y < Y_TILES; y++) {
                 for (int x = 0; x < X_TILES; x++) {
@@ -502,7 +637,7 @@ public class App extends Application {
                 }
             }
 
-            // creates the tiles and checks if hard mode is chosen
+        // creates the tiles and checks if hard mode is chosen
         } else if (Objects.equals(mode, "hard")) {
             for (int y = 0; y < Y_TILES; y++) {
                 for (int x = 0; x < X_TILES; x++) {
@@ -559,7 +694,7 @@ public class App extends Application {
             int newX = tile.x + dx; // neighbors x coordinate
             int newY = tile.y + dy; // neighbors y coordinate
 
-            // checks if new X & Y confidante is valid in Grid 2d Array
+            // checks if new X & Y coordinate is valid in Grid 2d Array
             if (newX >= 0 && newX < X_TILES
                     && newY >= 0 && newY < Y_TILES) {
                 neighbors.add(grid[newX][newY]);
@@ -672,141 +807,4 @@ public class App extends Application {
             }
         }
     }
-
-    @Override
-    public void start(Stage primaryStage) {
-
-        SoundHandler.backgroundMusic();
-        FileHandler.createFile();
-        primaryStage.setResizable(false);
-
-
-        BorderPane startPane = new BorderPane();
-        Button rulesButton = new Button("Rules");
-        rulesButton.setPrefWidth(80);
-
-        Button settingButton = new Button("Settings");
-        settingButton.setPrefWidth(80);
-
-        Button easyButton = new Button("Easy");
-        easyButton.setPrefWidth(80);
-
-        Button mediumButton = new Button("Medium");
-        mediumButton.setPrefWidth(80);
-
-        Button hardButton = new Button("Hard");
-        hardButton.setPrefWidth(80);
-
-        Button scoreButton = new Button("Highscore");
-        scoreButton.setPrefWidth(80);
-
-        Label startLabel = new Label("MINESWEEPER");
-        startLabel.setTextFill(Color.WHITE);
-        startLabel.setFont(Font.font(null, FontWeight.BOLD, 40));
-
-        Label chooseLabel = new Label("Choose Level: ");
-        chooseLabel.setFont(Font.font(20));
-        chooseLabel.setTextFill(Color.WHITE);
-
-
-        VBox top = new VBox(10, startLabel, chooseLabel);
-        top.setAlignment(Pos. TOP_CENTER);
-
-        VBox center = new VBox(25, easyButton, mediumButton, hardButton, scoreButton);
-        center.setAlignment(Pos. CENTER);
-
-
-        HBox bottom = new HBox(10, rulesButton, settingButton);
-
-
-        startPane.setPadding(new Insets(10));
-
-        startPane.setTop(top);
-        startPane.setCenter(center);
-        startPane.setBottom(bottom);
-
-
-        startPane.setBackground(ImageHandler.backgroundImage());
-
-
-        Scene startScene = new Scene(startPane, 600, 400);
-        this.primaryStage = primaryStage;
-
-        // sets the grid to 15 x 10 tiles when clicking on the easy-button
-        easyButton.setOnAction(e -> {
-            SoundHandler.mouseClickSound();
-            mode = "easy";
-            W = 600;
-            H = 400;
-            X_TILES = W / TILE_SIZE;
-            Y_TILES = H / TILE_SIZE;
-            scene = new Scene(createContent());
-            primaryStage.setScene(scene);
-            primaryStage.sizeToScene();
-            primaryStage.centerOnScreen();
-        });
-
-        // sets the grid to 20 x 15 tiles when clicking on the easy-button
-        mediumButton.setOnAction(e -> {
-            SoundHandler.mouseClickSound();
-            mode = "medium";
-            W = 800;
-            H = 600;
-            X_TILES = W / TILE_SIZE;
-            Y_TILES = H / TILE_SIZE;
-            scene = new Scene(createContent());
-            primaryStage.setScene(scene);
-            primaryStage.sizeToScene();
-            primaryStage.centerOnScreen();
-        });
-
-        // sets the grid to 25 x 20 tiles when clicking on the easy-button
-        hardButton.setOnAction(e -> {
-            SoundHandler.mouseClickSound();
-            mode = "hard";
-            W = 1000;
-            H = 800;
-            X_TILES = W / TILE_SIZE;
-            Y_TILES = H / TILE_SIZE;
-            scene = new Scene(createContent());
-            primaryStage.setScene(scene);
-            primaryStage.sizeToScene();
-            primaryStage.centerOnScreen();
-        });
-
-        // changes the scene to the scoreroom to see the highscore
-        scoreButton.setOnAction(e -> {
-            SoundHandler.mouseClickSound();
-            scene = new Scene(scoreRoom());
-            primaryStage.setScene(scene);
-            primaryStage.setWidth(TILE_SIZE*15.35);
-            primaryStage.setHeight(TILE_SIZE*10.95);
-            primaryStage.centerOnScreen();
-        });
-
-        // changes scene to the rulesroom to read the game rules
-        rulesButton.setOnAction(e -> {
-            SoundHandler.mouseClickSound();
-            scene = new Scene(rulesRoom());
-            primaryStage.setScene(scene);
-            primaryStage.setWidth(TILE_SIZE*20.35);
-            primaryStage.setHeight(TILE_SIZE*15.95);
-            primaryStage.centerOnScreen();
-        });
-
-        settingButton.setOnAction(e -> {
-            SoundHandler.mouseClickSound();
-            scene = new Scene(settingRoom());
-            primaryStage.setScene(scene);
-            primaryStage.centerOnScreen();
-        });
-
-        primaryStage.setScene(startScene);
-        primaryStage.setTitle("Minesweeper!");
-        primaryStage.show();
-    }
-
-    public static void main(String[] args) {
-        launch(args);
-    }
-}
+   }
